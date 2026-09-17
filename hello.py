@@ -1,5 +1,6 @@
 from flask import Flask
-from markupsafe import escape
+from markupsafe import escape 
+import mysql.connector as mys
 app = Flask(__name__)
 
 
@@ -12,3 +13,20 @@ def hello_world():
 def goodbye_world():
     name = "Goodbye"
     return f"<p>Goodbye, {escape(name)}</p>"
+
+@app.route("/mysql",methods=["GET"])
+def mysql_test():
+    conn = mys.connect(
+        host="localhost",
+        user="benjaminwesson",
+        database="benjaminwesson"
+    )
+
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM wesson")
+    
+    myresult = cursor.fetchall()
+
+    
+  
+    return f"<p>Successfully executed query on table 'wesson' and found {escape(myresult)}</p>"

@@ -27,6 +27,5 @@ def mysql_test():
     
     myresult = cursor.fetchall()
 
-    
-  
+
     return f"<p>Successfully executed query on table 'wesson' and found {escape(myresult)}</p>"

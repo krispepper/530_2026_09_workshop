@@ -21,6 +21,7 @@ def index():
         <input type="submit" value="Submit">
         </form></div>
     </body>
+    
     </html>"""
     ''' you can instead put this html template into templates/welcome.html and change to 
          return render_template("welcome.html") 

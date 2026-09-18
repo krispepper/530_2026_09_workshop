@@ -9,6 +9,12 @@ def hello_world():
     name = "World"
     return f"<p>Hello, {escape(name)}</p>"
 
+
+@app.route("/tahreem")
+def tahreem_world():
+    name = "Tahreem"
+    return f"<p>Hello, {escape(name)}</p>"
+
 @app.route("/bye")
 def goodbye_world():
     name = "Goodbye"
@@ -18,8 +24,8 @@ def goodbye_world():
 def mysql_test():
     conn = mys.connect(
         host="localhost",
-        user="benjaminwesson",
-        database="benjaminwesson"
+        user="tahreemshah",
+        database="fall2026_530_workshop"
     )
 
     cursor = conn.cursor()

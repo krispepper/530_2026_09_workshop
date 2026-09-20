@@ -18,6 +18,8 @@ class model:
         cursor.close()
         conn.close()
         return messages
+
+        
         
 
     

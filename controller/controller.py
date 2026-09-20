@@ -8,3 +8,5 @@ def test(app):
         users = model.get_users()
         return render_template('home.html',messages=messages,users=users)
         
+
+        

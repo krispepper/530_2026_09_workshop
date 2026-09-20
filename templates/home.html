@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Home</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    </head>
+
+    <body>
+        <div class ="flexbox" >
+                <p>{{messages}}</p>
+                <p>select user:</p>
+                <select name="user">
+                    {% for user in users %}
+                        <option value="{{ user[0] }}">{{ user[1] }}</option>
+                    {% endfor %}
+                </select>
+        </div>
+    </body>
+</html>

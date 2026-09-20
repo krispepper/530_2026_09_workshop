@@ -4,7 +4,7 @@ def connector():
     conn = mys.connect(
         host="localhost",
         user="benjaminwesson",
-        database="benjaminwesson",
+        database="fall2026_530_workshop",
         ssl_disabled=True
     )
 

@@ -5,5 +5,6 @@ def test(app):
     @app.route('/')
     def showMessage():
         messages = model.get_message()
-        return render_template('home.html',messages=messages)
+        users = model.get_users()
+        return render_template('home.html',messages=messages,users=users)
         

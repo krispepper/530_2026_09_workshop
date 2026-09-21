@@ -1,3 +1,4 @@
+import os
 from flask import Flask
 from controller.controller import viewHome
 class App:
@@ -10,4 +11,9 @@ def createApp():
     return myFlaskApp.app
 
 if __name__ == "__main__":
-    createApp().run(debug=True, port=5001)
+    if os.environ.get("WERKZEUG_RUN_MAIN") != "true":
+        user_port = input("Enter Port Number:")
+        os.environ["MY_APP_PORT"] = user_port
+    
+    port_number = int(os.environ.get("MY_APP_PORT"))
+    createApp().run(debug=True, port=port_number)

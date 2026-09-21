@@ -5,7 +5,7 @@ class model:
     def getUsers():
         conn = connector()
         cursor = conn.cursor()
-        cursor.execute("SELECT * FROM `USER`")
+        cursor.execute("SELECT * FROM users")
         users = cursor.fetchall()
         cursor.close()
         conn.close()

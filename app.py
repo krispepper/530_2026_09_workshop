@@ -10,4 +10,4 @@ def createApp():
     return myFlaskApp.app
 
 if __name__ == "__main__":
-    createApp().run(debug=True)
+    createApp().run(debug=True, port=5001)

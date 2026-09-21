@@ -12,7 +12,7 @@
                  {% endfor %}
                 <p>select user:</p>
                 <select name="user">
-                    {% for user in USER %}
+                    {% for user in users %}
                         <option value="{{ user[0] }}">{{ user[1] }}</option>
                     {% endfor %}
                 </select>

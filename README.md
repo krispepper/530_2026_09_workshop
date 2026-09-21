@@ -1,3 +1,4 @@
+enter commands in the following order to run our app
 
 **Step 1: You need to clone our repository from git hub to grab the files you need**
 
@@ -37,7 +38,7 @@ python3 app.py
 **Alterantive Option:**
 
 You can our run.sh file to setup our app
-enter commands in the following order to run our app
+
 
 **Step 1: give permission to file run.sh**
 

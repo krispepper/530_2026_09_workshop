@@ -32,6 +32,7 @@ enter commands in the following order to run our app
 
 **Step 1: give permission to file run.sh**
 run this command
+
 chmod +x run.sh
 
 **Step 2: Run file**

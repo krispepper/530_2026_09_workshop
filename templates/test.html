@@ -7,15 +7,11 @@
 
     <body>
         <div class ="helloWorld" >
-                {% for message in messages %}
+                {% for message in wesson %}
                     <p>{{ message[1] }}</p>
                  {% endfor %}
                 <p>select user:</p>
-                <select name="user">
-                    {% for user in USER %}
-                        <option value="{{ user[0] }}">{{ user[1] }}</option>
-                    {% endfor %}
-                </select>
+               
         </div>
     </body>
 </html>

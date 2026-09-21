@@ -1,13 +1,13 @@
 from flask import render_template
-from model.messageModel import messageModel
-from model.userModel import userModel
+from model.model import model
 
 def viewHome(app):
     @app.route("/")
     def showHome():
-        messages = messageModel.get_message()
-        users = userModel.get_users()
+        messages = model.getMessage()
+        users = model.getUsers()
         return render_template("home.html",messages=messages,users=users)
+        #return render_template("test.html",messages=messages)
         
 
         

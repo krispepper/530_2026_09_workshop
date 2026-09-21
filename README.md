@@ -1,5 +1,5 @@
 
-**Step 1: You need to clone our repoistiory for git hub to grab the files you need**
+**Step 1: You need to clone our repository from git hub to grab the files you need**
 
 run the command below
 

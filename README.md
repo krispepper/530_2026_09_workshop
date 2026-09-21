@@ -12,6 +12,7 @@ This is a good idea because it protects the packages you need from having confli
 Run the following commands below
 
 python -m venv .venv
+
 source .venv/bin/activate
 
 **Step 3: Install dependencies.**

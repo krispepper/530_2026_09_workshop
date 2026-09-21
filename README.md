@@ -1,11 +1,7 @@
-//enter commands in the following order to run our app
+-----enter commands in the following order to run our app
 
-//setup virtual environment
-python -m venv .venv
-source .venv/bin/activate
+----give permission to file run.sh
+chmod +x run.sh
 
-//install dependencies
-pip install -r requirements.txt
-
-//run app
-python3 app.py
+----run app
+./run.sh

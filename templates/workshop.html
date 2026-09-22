@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Home</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    </head>
+
+    <body>
+        <div class ="container">
+
+            <div>
+                <p>Known Workshops:</p>
+                {% for workshop in workshops %}
+                    <p>{{ workshop[1] }}</p>
+                {% endfor %}
+            </div>
+            <div class ="workshopDiv">
+                
+
+                <form action="/createWorkshop" method="POST">
+                    <div class="formContainer">
+                            <div>
+                                <select name="hostID">
+                                    {% for host in hosts %}
+                                        
+                                        <option value="{{ host[0] }}">{{ host[1] }}</option>
+                                    
+                                    {% endfor %}
+                                </select>
+                            </div>
+
+                            <div>
+                                <input type="text" name="workshop_name" label="workshop"  placeholder = "Example Workshop name" required>
+                            </div>
+
+    
+                            <div>
+                                <button type="submit" value="Submit">Submit</button>
+                            </div>
+                    </div>
+                </form> 
+            </div>
+        </div>
+    </body>
+</html>

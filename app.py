@@ -6,11 +6,11 @@
 
 import os
 from flask import Flask
-from controller.controller import viewHome
+from controller.controller import manageRoutes
 class App:
     def __init__(self):
         self.app = Flask(__name__)
-        viewHome(self.app)
+        manageRoutes(self.app)
      
 def createApp():
     myFlaskApp = App()

@@ -1,7 +1,8 @@
 #from database.mysqlConnection import connector
 import mysql.connector as mys
 from datetime import datetime
-
+#this is a temp fucntion to just make this file run individually 
+#once we finalize this function we can remove the db connection fucntion
 def connector():
     conn = mys.connect(
         host="localhost",

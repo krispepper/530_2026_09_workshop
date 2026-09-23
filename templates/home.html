@@ -1,23 +1,40 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <title>Home</title>
-        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    </head>
-
-    <body>
-        <div class ="helloWorld" >
-                {% for message in messages %}
-                    <p>{{ message[1] }}</p>
-                 {% endfor %}
-                <p>select user:</p>
-                <select name="user">
-                    {% for user in users %}
-                        <option value="{{ user[0] }}">{{ user[1] }}</option>
-                    {% endfor %}
-                </select>
-
-          
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+        <div class="container">
+            <a class="navbar-brand" href="/">Project Dashboard</a>
+            <div class="navbar-nav">
+                <a class="nav-link active" href="/">Home</a>
+                <a class="nav-link" href="/workshop">Workshops</a>
+                <a class="nav-link" href="/message">Messages</a>
+            </div>
         </div>
-    </body>
+    </nav>
+
+    <div class="container text-center">
+        <div class="card shadow-sm mx-auto mt-5" style="max-width: 600px;">
+            <div class="card-body">
+                <h3 class="card-title mb-4">System Messages</h3>
+                {% for message in messages %}
+                    <p class="border-bottom pb-2">{{ message[1] }}</p>
+                {% endfor %}
+                
+                <div class="mt-4">
+                    <label class="form-label">Select User:</label>
+                    <select class="form-select w-50 mx-auto" name="user">
+                        {% for user in users %}
+                            <option value="{{ user[0] }}">{{ user[1] }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
 </html>

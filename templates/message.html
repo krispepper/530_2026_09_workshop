@@ -1,8 +1,10 @@
+<!-- Purpose: Message submission template providing a form for users to enter and send messages. -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Submit Message</title>
+    <!-- Bootstrap CSS for styling -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body class="bg-light">
@@ -21,10 +23,12 @@
         </div>
     </nav>
 
+    <!-- Main Container for Message Form -->
     <div class="container">
         <div class="card shadow-sm mx-auto mt-5" style="max-width: 500px;">
             <div class="card-body">
                 <h3 class="card-title text-center mb-4">Send a Message</h3>
+                <!-- Form submitting message content to the /createMessage route -->
                 <form action="/createMessage" method="POST">
                     <div class="mb-3">
                         <label class="form-label">Message Content</label>

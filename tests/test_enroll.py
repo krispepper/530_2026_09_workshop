@@ -1,8 +1,8 @@
-# Purpose: Unit tests for checking available workshop slots and enrollment logic
+# Purpose: Unit tests to verify the workshop timeslot filtering logic for enrollments.
 
 from model.enroll import get_available_timeslots
 
 def test_get_available_timeslots_returns_list():
-    # Test passing a mock user ID (e.g., ID 1) to verify query structure
+    # Test that passing a sample user ID returns available slots as a list
     slots = get_available_timeslots(1)
     assert isinstance(slots, list)

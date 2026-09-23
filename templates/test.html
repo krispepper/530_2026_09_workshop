@@ -1,12 +1,16 @@
+<!-- Purpose: Test template displaying dynamic message records passed from the backend controller. -->
 <!DOCTYPE html>
 <html>
     <head>
         <title>Home</title>
+        <!-- Link to the external CSS stylesheet in the static folder -->
         <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     </head>
 
     <body>
-        <div class ="helloWorld" >
+        <!-- Container holding the messages output -->
+        <div class="helloWorld">
+                <!-- Iterate through the messages collection and display each message text -->
                 {% for message in messages %}
                     <p>{{ message[1] }}</p>
                 {% endfor %}

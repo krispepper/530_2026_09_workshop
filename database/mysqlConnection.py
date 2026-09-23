@@ -1,6 +1,9 @@
+# Purpose: Manages MySQL database connections and provides reusable helper functions to execute read (SELECT) and write (INSERT/UPDATE/DELETE) queries.
+
 import mysql.connector as mys
 
 def connector():
+    # Establish and return a connection to the local MySQL database
     return mys.connect(
         host="localhost",
         user="benjaminwesson",
@@ -10,6 +13,7 @@ def connector():
 
 # Reusable module for SELECT queries (Read)
 def fetch_data(query, params=None):
+    # Connect to database, execute query with optional parameters, fetch all rows, and close connections
     conn = connector()
     cursor = conn.cursor()
     if params:
@@ -23,6 +27,7 @@ def fetch_data(query, params=None):
 
 # Reusable module for INSERT/UPDATE/DELETE queries (Write)
 def execute_query(query, params=None):
+    # Connect to database, execute write query, commit changes, capture last inserted row ID, and close connections
     conn = connector()
     cursor = conn.cursor()
     if params:

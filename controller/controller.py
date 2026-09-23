@@ -1,3 +1,5 @@
+# Purpose: Handles web application routing, request parameters, user sessions, and connects controller endpoints to models and templates.
+
 from flask import render_template, request, redirect, url_for, session, flash
 from model.model import model
 from model import workshop
@@ -5,12 +7,14 @@ from model import user
 from model import enroll
 
 def manageRoutes(app):
+    # Route for the home dashboard displaying system messages and user list
     @app.route("/")
     def showHome():
         messages = model.getMessage()
         users = user.get_all_users() 
         return render_template("home.html", messages=messages, users=users)
 
+    # Route to display the workshop management page with existing workshops, hosts, and locations
     @app.route("/workshop")
     def showWorkshop():
         workshops = workshop.get_all_workshops()
@@ -18,6 +22,7 @@ def manageRoutes(app):
         locations = workshop.get_all_locations()
         return render_template("workshop.html", workshops=workshops, hosts=hosts, locations=locations)
 
+    # Route to handle creating a new workshop from form data
     @app.route("/createWorkshop", methods=["POST"])
     def createWorkshop():
         workshop_name = request.form["workshop_name"]
@@ -25,12 +30,14 @@ def manageRoutes(app):
         workshop.create_workshop(workshop_name, hostID)
         return redirect(url_for("showWorkshop"))
 
+    # Route to handle creating a new host
     @app.route("/createHost", methods=["POST"])
     def createHost():
         host_name = request.form["host_name"]
         workshop.create_host(host_name)
         return redirect(url_for("showWorkshop"))
 
+    # Route to handle creating a new room location and capacity
     @app.route("/createLocation", methods=["POST"])
     def createLocation():
         location_name = request.form["location_name"]
@@ -38,6 +45,7 @@ def manageRoutes(app):
         workshop.create_location(location_name, capacity)
         return redirect(url_for("showWorkshop"))
 
+    # Route to handle scheduling a new workshop time slot and visibility
     @app.route("/createTimeslot", methods=["POST"])
     def createTimeslot():
         workshop_id = request.form["workshop_id"]
@@ -49,20 +57,24 @@ def manageRoutes(app):
         workshop.create_timeslot(workshop_id, session_datetime, is_public, location_id)
         return redirect(url_for("showWorkshop"))
 
+    # Route to handle saving a new message submission
     @app.route("/createMessage", methods=["POST"])
     def createMessage():
         message = request.form["message"]
         model.createMessage(message)
         return redirect(url_for("showHome"))
         
+    # Route to display the message submission form page
     @app.route("/message")
     def messageForm():
        return render_template("message.html")
 
+    # Route to display the user registration form page
     @app.route("/register", methods=["GET"])
     def showRegister():
         return render_template("register.html")
 
+    # Route to handle registering a new user account
     @app.route("/createUser", methods=["POST"])
     def createUser():
         first_name = request.form["firstName"]
@@ -70,15 +82,15 @@ def manageRoutes(app):
         perms = request.form["perms"]
         email = request.form["email"]
         phone = request.form["phonenumber"]
-        password = request.form["password"] # Added password capture
+        password = request.form["password"]
         
         user.create_user(first_name, last_name, perms, email, phone, password)
         
         return redirect(url_for("login"))
 
+    # Route to display available workshop slots for the logged-in user to enroll
     @app.route("/enroll", methods=["GET"])
     def showEnroll():
-        
         if "user_id" not in session:
             flash("Please log in first to enroll in workshops.")
             return redirect(url_for("login"))
@@ -89,6 +101,7 @@ def manageRoutes(app):
         
         return render_template("enroll.html", slots=slots)
 
+    # Route to handle saving a user's workshop enrollment
     @app.route("/createEnrollment", methods=["POST"])
     def createEnrollment():
         user_id = request.form["user_id"]
@@ -98,6 +111,7 @@ def manageRoutes(app):
         
         return redirect(url_for("showHome"))
 
+    # Route to handle user login authentication and session creation
     @app.route("/login", methods=["GET", "POST"])
     def login():
         if request.method == "POST":
@@ -116,14 +130,15 @@ def manageRoutes(app):
                 
         return render_template("login.html")
 
+    # Route to handle user logout by clearing the active session
     @app.route("/logout")
     def logout():
         session.clear()
         return redirect(url_for("login"))
 
+    # Route to handle changing the password for an authenticated user
     @app.route("/change-password", methods=["GET", "POST"])
     def changePassword():
-        # Check if user is logged in first using the session
         if "user_id" not in session:
             return redirect(url_for("login"))
             

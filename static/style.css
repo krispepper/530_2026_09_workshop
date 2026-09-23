@@ -1,18 +1,25 @@
+/* Purpose: Custom stylesheet defining layout alignment, borders, padding, and spacing for the application UI elements. */
+
 body {
+    /* Remove default body margin */
     margin: 0;
+    /* Ensure body takes up at least the full viewport height */
     min-height: 100vh;
+    /* Center content horizontally and vertically */
     display: flex;
     justify-content: center; 
-    align-items: center;     
+    align-items: center;    
 }
 
 .helloWorld {
+    /* Center text alignment with a solid border and padding box */
     text-align: center;
     border: solid 1px black;
     padding: 20px;
 }
 
 .container {
+    /* Stack container children vertically with uniform gap spacing */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -20,11 +27,13 @@ body {
 }
 
 .workshopDiv {
+    /* Box container styling for workshop sections */
     border: solid 1px black;
     padding: 20px;
 }
 
 .formContainer {
+    /* Stack form elements vertically with uniform spacing */
     display: flex;
     flex-direction: column;
     align-items: center;

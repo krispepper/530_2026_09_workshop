@@ -1,45 +1,116 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Home</title>
+        <title>Workshop Management</title>
         <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     </head>
 
     <body>
-        <div class ="container">
-
+        <div class="container">
+            
+            <!-- Display Existing Workshops -->
             <div>
-                <p>Known Workshops:</p>
+                <h2>Known Workshops:</h2>
+                <ul>
                 {% for workshop in workshops %}
-                    <p>{{ workshop[1] }}</p>
+                    <li>{{ workshop[1] }}</li>
                 {% endfor %}
+                </ul>
             </div>
-            <div class ="workshopDiv">
-                
 
+            <hr>
+
+            <!-- Form 1: Create Host -->
+            <div class="formDiv">
+                <h3>1. Create a Host</h3>
+                <form action="/createHost" method="POST">
+                    <input type="text" name="host_name" placeholder="Enter Host Name" required>
+                    <button type="submit">Add Host</button>
+                </form>
+            </div>
+
+            <br>
+
+            <!-- Form 2: Create Location -->
+            <div class="formDiv">
+                <h3>2. Create a Location</h3>
+                <form action="/createLocation" method="POST">
+                    <input type="text" name="location_name" placeholder="Enter Room/Location Name" required>
+                    <input type="number" name="capacity" placeholder="Capacity (e.g. 30)" required>
+                    <button type="submit">Add Location</button>
+                </form>
+            </div>
+
+            <br>
+
+            <!-- Form 3: Create Workshop (Your original form updated) -->
+            <div class="workshopDiv">
+                <h3>3. Create a Workshop</h3>
                 <form action="/createWorkshop" method="POST">
                     <div class="formContainer">
-                            <div>
-                                <select name="hostID">
-                                    {% for host in hosts %}
-                                        
-                                        <option value="{{ host[0] }}">{{ host[1] }}</option>
-                                    
-                                    {% endfor %}
-                                </select>
-                            </div>
-
-                            <div>
-                                <input type="text" name="workshop_name" label="workshop"  placeholder = "Example Workshop name" required>
-                            </div>
-
-    
-                            <div>
-                                <button type="submit" value="Submit">Submit</button>
-                            </div>
+                        <div>
+                            <label>Select Host:</label>
+                            <select name="hostID" required>
+                                <option value="" disabled selected>Choose a Host</option>
+                                {% for host in hosts %}
+                                    <option value="{{ host[0] }}">{{ host[1] }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div>
+                            <label>Workshop Name:</label>
+                            <input type="text" name="workshop_name" placeholder="Example Workshop name" required>
+                        </div>
+                        <div>
+                            <button type="submit" value="Submit">Create Workshop</button>
+                        </div>
                     </div>
                 </form> 
             </div>
+
+            <br>
+
+            <!-- Form 4: Create Timeslot -->
+            <div class="formDiv">
+                <h3>4. Create a Time Slot</h3>
+                <form action="/createTimeslot" method="POST">
+                    <div>
+                        <label>Select Workshop:</label>
+                        <select name="workshop_id" required>
+                            <option value="" disabled selected>Choose a Workshop</option>
+                            {% for workshop in workshops %}
+                                <option value="{{ workshop[0] }}">{{ workshop[1] }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    
+                    <div>
+                        <label>Select Location:</label>
+                        <select name="location_id" required>
+                            <option value="" disabled selected>Choose a Location</option>
+                            {% for location in locations %}
+                                <option value="{{ location[0] }}">{{ location[1] }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div>
+                        <label>Date and Time:</label>
+                        <!-- type="datetime-local" forces the user to pick a valid format via browser calendar -->
+                        <input type="datetime-local" name="session_datetime" required>
+                    </div>
+
+                    <div>
+                        <label>Is Public?</label>
+                        <input type="checkbox" name="is_public">
+                    </div>
+
+                    <div>
+                        <button type="submit">Create Time Slot</button>
+                    </div>
+                </form>
+            </div>
+
         </div>
     </body>
 </html>

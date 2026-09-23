@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Enroll in Workshop</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+    <!-- Updated Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+        <div class="container">
+            <a class="navbar-brand" href="/">Project Dashboard</a>
+            <div class="navbar-nav">
+                <a class="nav-link" href="/">Home</a>
+                <a class="nav-link" href="/workshop">Workshops</a>
+                <a class="nav-link" href="/message">Messages</a>
+                <a class="nav-link" href="/change-password">Change Password</a>
+                <a class="nav-link" href="/enroll">Enroll</a>
+                <a class="nav-link text-danger" href="/logout">Logout</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="card shadow-sm mx-auto mt-5" style="max-width: 600px;">
+            <div class="card-body">
+                <h3 class="card-title text-center mb-4 text-primary">Enroll in a Workshop</h3>
+                <p class="text-center text-muted mb-4">Welcome, <strong>{{ session.get('user_name') }}</strong>! Select an available workshop below.</p>
+                
+                <form action="/createEnrollment" method="POST">
+                    <label class="form-label text-primary fw-bold">Available Workshops (Public & Private Invites)</label>
+                    <select class="form-select mb-4" name="timeslot_id" required>
+                        <option value="" disabled selected>Choose a workshop to join...</option>
+                        {% for slot in slots %}
+                            <option value="{{ slot[0] }}">
+                                {{ slot[1] }} | {{ slot[2] }} | {{ slot[3] }} 
+                                {% if slot[4] == 1 %}(Public){% else %}(Private Invite){% endif %}
+                            </option>
+                        {% endfor %}
+                    </select>
+                    
+                    <button type="submit" class="btn btn-primary w-100">Confirm Enrollment</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

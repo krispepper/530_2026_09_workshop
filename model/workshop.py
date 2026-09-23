@@ -9,8 +9,10 @@ def get_all_locations():
 def get_all_workshops():
     return fetch_data("SELECT id, workshop_name FROM workshop")
 
-def create_host(host_name):
-    execute_query("INSERT INTO hosts (host_name) VALUES (%s)", (host_name,))
+def create_host(host_name, user_id):
+    # Updated to user_id to match your database column name
+    query = "INSERT INTO hosts (host_name, user_id) VALUES (%s, %s)"
+    execute_query(query, (host_name, user_id))
 
 def create_location(location_name, capacity):
     execute_query("INSERT INTO location (location_name, capacity) VALUES (%s, %s)", (location_name, capacity))

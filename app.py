@@ -5,6 +5,8 @@ from controller.controller import manageRoutes
 class App:
     def __init__(self):
         self.app = Flask(__name__)
+        # Required for Flask session management (login tracking)
+        self.app.secret_key = "super_secret_workshop_key_2026" 
         manageRoutes(self.app)
      
 def createApp():

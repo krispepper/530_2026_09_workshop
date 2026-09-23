@@ -30,5 +30,11 @@ def execute_query(query, params=None):
     else:
         cursor.execute(query)
     conn.commit()
+    
+    # Grab the ID of the row we just inserted
+    last_id = cursor.lastrowid 
+    
     cursor.close()
     conn.close()
+    
+    return last_id

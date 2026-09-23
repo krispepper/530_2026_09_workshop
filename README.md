@@ -51,8 +51,13 @@ run this command
 
 ./run.sh
 
+**Step 5: Run Unit Tests**
 
+We use `pytest` for unit testing our backend modules (users, workshops, and enrollments). 
+All unit tests are organized in the `tests/` folder.
 
+You can run the test script using your exact terminal workflow:
 
-
-
+**Step 1: Give execution permission to the test script**
+```bash
+chmod +x run_tests.sh

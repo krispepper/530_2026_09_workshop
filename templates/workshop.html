@@ -28,7 +28,7 @@
             <div class="col-md-6 mb-4">
                 <div class="card shadow-sm h-100">
                     <div class="card-body">
-                        <h5 class="card-title text-success">1. Create Host</h5>
+                        <h5 class="card-title text-success">1. Create Host<span class="text-danger">*</span></label></h5>
                         <!-- Form submitting to create a new host -->
                         <form action="/createHost" method="POST">
                             <input type="text" class="form-control mb-3" name="host_name" placeholder="Host Name" required>
@@ -42,7 +42,7 @@
             <div class="col-md-6 mb-4">
                 <div class="card shadow-sm h-100">
                     <div class="card-body">
-                        <h5 class="card-title text-success">2. Create Location</h5>
+                        <h5 class="card-title text-success">2. Create Location<span class="text-danger">*</span></label></h5>
                         <!-- Form submitting to create a new workshop location -->
                         <form action="/createLocation" method="POST">
                             <input type="text" class="form-control mb-2" name="location_name" placeholder="Room Name" required>
@@ -57,7 +57,7 @@
             <div class="col-md-6 mb-4">
                 <div class="card shadow-sm h-100">
                     <div class="card-body">
-                        <h5 class="card-title text-primary">3. Create Workshop</h5>
+                        <h5 class="card-title text-primary">3. Create Workshop<span class="text-danger">*</span></label></h5>
                         <!-- Form submitting to create a new workshop linked to a host -->
                         <form action="/createWorkshop" method="POST">
                             <select class="form-select mb-2" name="hostID" required>
@@ -77,7 +77,7 @@
             <div class="col-md-6 mb-4">
                 <div class="card shadow-sm h-100">
                     <div class="card-body">
-                        <h5 class="card-title text-primary">4. Create Time Slot</h5>
+                        <h5 class="card-title text-primary">4. Create Time Slot<span class="text-danger">*</span></label></h5>
                         <!-- Form submitting to schedule a new workshop time slot -->
                         <form action="/createTimeslot" method="POST">
                             <select class="form-select mb-2" name="workshop_id" required>

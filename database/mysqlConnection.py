@@ -1,12 +1,10 @@
 # Purpose: Manages MySQL database connections and provides reusable helper functions to execute read (SELECT) and write (INSERT/UPDATE/DELETE) queries.
 
 import mysql.connector as mys
-import os
-from dotenv import load_dotenv, dotenv_values
+import getpass
 
-load_dotenv()
-USER = os.getenv("USER")
-print("The user is ", USER)
+USER = getpass.getuser()
+print(USER)
 
 def connector():
     # Establish and return a connection to the local MySQL database

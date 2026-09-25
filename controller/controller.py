@@ -83,7 +83,6 @@ def manageRoutes(app):
         email = request.form["email"]
         phone = request.form["phonenumber"]
         password = request.form["password"]
-        
         user.create_user(first_name, last_name, perms, email, phone, password)
         
         return redirect(url_for("login"))
@@ -104,7 +103,7 @@ def manageRoutes(app):
     # Route to handle saving a user's workshop enrollment
     @app.route("/createEnrollment", methods=["POST"])
     def createEnrollment():
-        user_id = request.form["user_id"]
+        user_id = session["user_id"]
         timeslot_id = request.form["timeslot_id"]
         
         enroll.enroll_in_workshop(user_id, timeslot_id)
@@ -121,9 +120,10 @@ def manageRoutes(app):
             logged_in_user = user.authenticate_user(email, password)
             
             if logged_in_user:
-                session["user_id"] = logged_in_user["id"]
-                session["user_name"] = logged_in_user["firstName"]
-                session["perms"] = logged_in_user["perms"]
+                # Use integer indices instead of string keys
+                session["user_id"] = logged_in_user[0]
+                session["user_name"] = logged_in_user[1]
+                session["perms"] = logged_in_user[4]
                 return redirect(url_for("showHome"))
             else:
                 flash("Invalid email or password. Please try again.")
@@ -149,3 +149,4 @@ def manageRoutes(app):
             return redirect(url_for("showHome"))
             
         return render_template("change_password.html")
+    

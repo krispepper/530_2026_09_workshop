@@ -4,7 +4,7 @@ import mysql.connector as mys
 import getpass
 
 USER = getpass.getuser()
-print(USER)
+#print(USER)
 
 def connector():
     # Establish and return a connection to the local MySQL database

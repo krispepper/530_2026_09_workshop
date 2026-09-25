@@ -14,12 +14,12 @@ def get_all_users():
 def authenticate_user(email, password):
     # Retrieve user account details by joining users and email tables for authentication verification
     query = """
-        SELECT u.id, u.firstName, u.lastName, e.email, u.password, u.perms 
+        SELECT u.id, u.firstName, u.lastName, e.email, u.perms 
         FROM users u
         JOIN email e ON u.id = e.personId
-        WHERE e.email = %s
+        WHERE e.email = %s AND u.password = %s
     """
-    users = fetch_data(query, (email,))
+    users = fetch_data(query, (email,password))
     if users:
         return users[0]
     return None

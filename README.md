@@ -59,9 +59,13 @@ All unit tests are organized in the `tests/` folder.
 You can run the test script using your exact terminal workflow:
 
 **Step 1: Give execution permission to the test script**
-```bash
+
+run this command
+
 chmod +x run_tests.sh
 
 **Step 2: Run tests**
-```bash
+
+run this command
+
 ./run_tests.sh

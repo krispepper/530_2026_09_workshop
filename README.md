@@ -61,3 +61,7 @@ You can run the test script using your exact terminal workflow:
 **Step 1: Give execution permission to the test script**
 ```bash
 chmod +x run_tests.sh
+
+**Step 2: Run tests**
+```bash
+./run_tests.sh

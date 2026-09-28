@@ -8,8 +8,8 @@ def test_authenticate_valid_user():
     #if user was found
     if user:
         #checks if authenticated user has the expected info
-        assert user["firstName"] == "Ben"
-        assert user["perms"] == "admin"
+        assert user[1] == "Ben"
+        assert user[4] == "admin"
     else:
         assert True
 

@@ -52,7 +52,7 @@ def login():
 @user_bp.route("/logout")
 def logout():
     session.clear()
-    return redirect(url_for("user.login"))
+    return render_template("/logout.html")
 
 # Route to handle changing the user's password
 @user_bp.route("/change-password", methods=["GET", "POST"])

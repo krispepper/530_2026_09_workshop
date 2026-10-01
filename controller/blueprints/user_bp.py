@@ -1,10 +1,11 @@
+
 from flask import Blueprint, render_template, request, redirect, url_for, session, flash
 from model import user
 from jinja2.exceptions import TemplateNotFound
 
 user_bp = Blueprint('user', __name__, template_folder='templates')
 
- # Route to display the user registration form page
+# Route to display the user registration form page
 @user_bp.route("/register", methods=["GET"])
 def showRegister():
     try:

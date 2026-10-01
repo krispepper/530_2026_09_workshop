@@ -1,3 +1,4 @@
+#Purpose: Return the home page for our workshop app
 from flask import Blueprint, render_template, redirect, abort
 from jinja2.exceptions import TemplateNotFound
 from model.model import model
@@ -11,6 +12,7 @@ home_bp = Blueprint('home', __name__,template_folder='templates')
 def home():
 
     try:
+        #fetch messages and users
         messages = model.getMessage()
         users = user.get_all_users() 
         return render_template('home.html', messages=messages, users=users)

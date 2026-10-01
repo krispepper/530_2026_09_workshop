@@ -24,20 +24,15 @@ def authenticate_user(email, password):
         return users[0]
     return None
 
-def create_user(first_name, last_name, email, hashed_password, phone_number, perms):
-    # Insert user base details into the users table and retrieve the new user ID
-    user_query = "INSERT INTO users (firstName, lastName, password, perms) VALUES (%s, %s, %s, %s)"
-    user_id = execute_query(user_query, (first_name, last_name, hashed_password, perms))
+def create_user(first_name, last_name, email, password, phone_number, perms):
+    # Insert user base details and phone number directly into the users table
+    user_query = "INSERT INTO users (firstName, lastName, password, perms, phonenumber) VALUES (%s, %s, %s, %s, %s)"
+    user_id = execute_query(user_query, (first_name, last_name, password, perms, phone_number))
     
     # Insert email into the separate email table if provided
     if email and user_id:
         email_query = "INSERT INTO email (email, personId) VALUES (%s, %s)"
         execute_query(email_query, (email, user_id))
-        
-    # Insert phone number into the separate phonenumber table if provided
-    if phone_number and user_id:
-        phone_query = "INSERT INTO phonenumber (phonenumber, userID) VALUES (%s, %s)"
-        execute_query(phone_query, (phone_number, user_id))
 
 def update_password(user_id, hashed_password):
     # Update the password hash for a specific user ID in the users table

@@ -10,28 +10,5 @@
 <body class="bg-light">
     {% include 'navbar.html' %}
 
-    <!-- Main Container -->
-    <div class="container text-center">
-        <div class="card shadow-sm mx-auto mt-5" style="max-width: 600px;">
-            <div class="card-body">
-                <h3 class="card-title mb-4">System Messages</h3>
-                <!-- Loop through and display each system message record -->
-                {% for message in messages %}
-                    <p class="border-bottom pb-2">{{ message[1] }}</p>
-                {% endfor %}
-                
-                <!-- User Selection Dropdown -->
-                <div class="mt-4">
-                    <label class="form-label">Select User:</label>
-                    <select class="form-select w-50 mx-auto" name="user">
-                        <!-- Populate dropdown options from the users collection -->
-                        {% for user in users %}
-                            <option value="{{ user[0] }}">{{ user[1] }}</option>
-                        {% endfor %}
-                    </select>
-                </div>
-            </div>
-        </div>
-    </div>
 </body>
 </html>

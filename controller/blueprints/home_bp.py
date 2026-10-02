@@ -12,10 +12,7 @@ home_bp = Blueprint('home', __name__,template_folder='templates')
 def home():
 
     try:
-        #fetch messages and users
-        messages = model.getMessage()
-        users = user.get_all_users() 
-        return render_template('home.html', messages=messages, users=users)
+        return render_template('home.html')
         
     except TemplateNotFound:
     #if we can't render the home page, return a 404 error

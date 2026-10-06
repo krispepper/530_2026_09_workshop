@@ -24,7 +24,7 @@ def authenticate_user(email, password):
         return users[0]
     return None
 
-def create_user(first_name, last_name, email, password, phone_number, perms):
+def create_user(first_name, last_name, email, password, phone_number, perms = "user"):
     # Insert user base details and phone number directly into the users table
     user_query = "INSERT INTO users (firstName, lastName, password, perms, phonenumber) VALUES (%s, %s, %s, %s, %s)"
     user_id = execute_query(user_query, (first_name, last_name, password, perms, phone_number))
@@ -34,7 +34,12 @@ def create_user(first_name, last_name, email, password, phone_number, perms):
         email_query = "INSERT INTO email (email, personId) VALUES (%s, %s)"
         execute_query(email_query, (email, user_id))
 
-def update_password(user_id, hashed_password):
+    if perms == "host":
+        # Insert hosts details into the hosts table if the user has hosts permissions
+        hosts_query = "INSERT INTO hosts (host_name, user_id) VALUES (%s, %s)"
+        execute_query(hosts_query, (first_name, user_id))
+
+def update_password(user_id, password):
     # Update the password hash for a specific user ID in the users table
     query = "UPDATE users SET password = %s WHERE id = %s"
-    execute_query(query, (hashed_password, user_id))
+    execute_query(query, (password, user_id))

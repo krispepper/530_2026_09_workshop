@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, redirect, request, url_for
+from flask import Blueprint, render_template, request, redirect, url_for, session, flash
 from model import workshop
 from jinja2.exceptions import TemplateNotFound
 

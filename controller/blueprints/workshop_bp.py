@@ -31,21 +31,6 @@ def createWorkshop():
         flash("Workshop creation page not found.")
         return redirect(url_for("workshop.showWorkshop"))
 
-
-# Route to handle creating a new host
-@workshop_bp.route("/createHost", methods=["POST"])
-
-def createHost():
-    try:
-        host_name = request.form["host_name"]
-        workshop.create_host(host_name)
-        return redirect(url_for("workshop.showWorkshop"))
-
-    except TemplateNotFound:
-        flash("Host creation page not found.")
-        return redirect(url_for("workshop.showWorkshop"))
-
-
 # Route to handle creating a new room location and capacity
 @workshop_bp.route("/createLocation", methods=["POST"])
 def createLocation():

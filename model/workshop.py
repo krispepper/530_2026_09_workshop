@@ -14,11 +14,6 @@ def get_all_workshops():
     # Fetch all workshop titles and IDs
     return fetch_data("SELECT id, workshop_name FROM workshop")
 
-def create_host(host_name):
-    # Insert a new host linked to a specific user ID
-    query = "INSERT INTO hosts (host_name) VALUES (%s)"
-    execute_query(query, (host_name,))
-
 def create_location(location_name, capacity):
     # Insert a new workshop location with seating capacity
     execute_query("INSERT INTO location (location_name, capacity) VALUES (%s, %s)", (location_name, capacity))

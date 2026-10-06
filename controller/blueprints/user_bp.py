@@ -20,7 +20,8 @@ def createUser():
     try:
         first_name = request.form["firstName"]
         last_name = request.form["lastName"]
-        perms = request.form["perms"]
+
+        perms = request.form.get("perms","student")
         email = request.form["email"]
         phone = request.form["phonenumber"]
         password = request.form["password"]

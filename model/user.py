@@ -24,7 +24,7 @@ def authenticate_user(email, password):
         return users[0]
     return None
 
-def create_user(first_name, last_name, email, password, phone_number, perms = "user"):
+def create_user(first_name, last_name, email, password, phone_number, perms = "student"):
     # Insert user base details and phone number directly into the users table
     user_query = "INSERT INTO users (firstName, lastName, password, perms, phonenumber) VALUES (%s, %s, %s, %s, %s)"
     user_id = execute_query(user_query, (first_name, last_name, password, perms, phone_number))

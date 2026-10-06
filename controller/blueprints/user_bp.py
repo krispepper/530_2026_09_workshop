@@ -68,3 +68,12 @@ def changePassword():
         flash("Your password has been updated successfully!")
         return redirect(url_for("home.home"))
     return render_template("change_password.html")
+
+#(TS-S2) Route to display users account page
+@user_bp.route("/account")
+def accountInfo():
+    if "user_id" not in session:
+        return redirect(url_for("user.login"))
+        #
+    return render_template("account.html")
+    

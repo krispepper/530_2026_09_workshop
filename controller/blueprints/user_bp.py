@@ -72,8 +72,15 @@ def changePassword():
 #(TS-S2) Route to display users account page
 @user_bp.route("/account")
 def accountInfo():
+    #Check to see if user is logged in, if not, the user gets redirected to the login page.
     if "user_id" not in session:
         return redirect(url_for("user.login"))
-        #
+    #Get user id
+    user_id = session["user_id"]
+    #Get users information
+    user_info = session[]
+    #Get enrolled workshop information  
+    workshop_info = session[ ]
+    #Render html page  
     return render_template("account.html")
     

@@ -78,9 +78,9 @@ def accountInfo():
     #Get user id
     user_id = session["user_id"]
     #Get users information
-    user_info = session[]
+    #user_info = session[]
     #Get enrolled workshop information  
-    workshop_info = session[ ]
+    #workshop_info = session[ ]
     #Render html page  
     return render_template("account.html")
     

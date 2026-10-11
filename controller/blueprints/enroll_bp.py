@@ -27,6 +27,11 @@ def showEnroll():
 @enroll_bp.route("/createEnrollment", methods=["POST"])
 def createEnrollment():
     try:
+        # SAFETY CHECK: Prevent the KeyError if they somehow get here without logging in
+        if "user_id" not in session:
+            flash("Please log in first to enroll in workshops.")
+            return redirect(url_for("user.login"))
+            
         user_id = session["user_id"]
         timeslot_id = request.form["timeslot_id"]
         enroll.enroll_in_workshop(user_id, timeslot_id)
@@ -36,5 +41,4 @@ def createEnrollment():
 
     except TemplateNotFound:
         flash("Enrollment page not found.")
-        # Redirect to the home page if the enrollment page is not found
         return redirect(url_for("home.home"))

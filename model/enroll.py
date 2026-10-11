@@ -17,29 +17,28 @@ def get_available_timeslots(user_id):
 def get_top_subscribed_workshops(limit=5):
     """
     Fetches the top subscribed public workshops.
-    - Only includes dates starting strictly from tomorrow onward (CURDATE() + INTERVAL 1 DAY).
-    - Excludes workshops that have 0 spots left.
-    - Orders by the most subscribed workshops first.
+    - Groups by workshop to show the count of available timeslots.
+    - Only counts timeslots starting from tomorrow onward.
+    - Excludes timeslots that are full.
     """
     query = """
         SELECT 
-            ts.id,
+            w.id,
             w.workshop_name,
             COALESCE(h.host_name, 'Instructor TBA') AS host_name,
-            ts.session_datetime,
-            l.location_name,
-            (l.capacity - (SELECT COUNT(*) FROM workshop_roster r WHERE r.timeslot_id = ts.id)) AS spots_left,
+            COUNT(DISTINCT ts.id) AS available_timeslots,
             (SELECT COUNT(*) FROM workshop_roster wr 
              JOIN workshop_time_slot wts ON wr.timeslot_id = wts.id 
              WHERE wts.workshop_id = w.id) AS total_subscribers
-        FROM workshop_time_slot ts
-        JOIN workshop w ON ts.workshop_id = w.id
+        FROM workshop w
+        JOIN workshop_time_slot ts ON w.id = ts.workshop_id
         JOIN location l ON ts.location_id = l.id
         LEFT JOIN hosts h ON w.hostID = h.id
         WHERE ts.is_public = 1
           AND ts.session_datetime >= CURDATE() + INTERVAL 1 DAY
           AND (l.capacity - (SELECT COUNT(*) FROM workshop_roster r WHERE r.timeslot_id = ts.id)) > 0
-        ORDER BY total_subscribers DESC, ts.session_datetime ASC
+        GROUP BY w.id, w.workshop_name, h.host_name
+        ORDER BY total_subscribers DESC
         LIMIT %s
     """
     return fetch_data(query, (limit,))

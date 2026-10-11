@@ -20,17 +20,25 @@ An account page that will display all of the workshops the user has enrolled in-
                 <!--main title-->
                 <h3 class="card-title text-center mb-4 text-primary">Account Info</h3>
                 <!--Message and button to redirect user to login-->
-                <p class="text-center mb-4">Welcome, <strong>{{ session.get('user_name') }}</strong>!</p>
-                
+                <p class="text-center mb-4">Welcome back, <strong>{{ session.get('user_name') }}</strong>!</p>
+
                 <!--Enrolled workshop section-->
                 <hr>
                 <h4 class="text-center mb-4">Enrolled Workshops</h4>
                 <!--example workshops; need to connect to db when finished-->
                 <ul class="list-group">
-                    <li class="list-group-item">Mouse Workshop<span class="text-muted float-end">ID: 1</span></li>
+                    <!--The format will be workshop name on the left, and the ID number on the right-->
+                    <li class="list-group-item">Flexing Workshop<span class="text-muted float-end">ID: 1</span></li>
+                    <li class="list-group-item">Junk Journaling 101<span class="text-muted float-end">ID: 2</span></li>
                 </ul>
-                        <!--if the person isnt enrolled in any workshops-->
+                        <!-- OR if the person isnt enrolled in any workshops-->
                         <!--<li class="list-group-item text-muted text-center">You have not enrolled in any workshops yet.</li>-->
+
+                <!--Browse workshops button that navigates back to workshops page-->
+                <hr>
+                <p class="text-center mb-4">Want to enroll in more workshops?</p>
+                <a href="/workshop" class="btn btn-primary w-100">Browse Workshops</a>
+                        
             </div>
         </div>
     </div>

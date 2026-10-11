@@ -22,6 +22,15 @@ An account page that will display all of the workshops the user has enrolled in-
                 <!--Message and button to redirect user to login-->
                 <p class="text-center mb-4">Welcome, <strong>{{ session.get('user_name') }}</strong>!</p>
                 
+                <!--Enrolled workshop section-->
+                <hr>
+                <h4 class="text-center mb-4">Enrolled Workshops</h4>
+                <!--example workshops; need to connect to db when finished-->
+                <ul class="list-group">
+                    <li class="list-group-item">Mouse Workshop<span class="text-muted float-end">ID: 1</span></li>
+                </ul>
+                        <!--if the person isnt enrolled in any workshops-->
+                        <!--<li class="list-group-item text-muted text-center">You have not enrolled in any workshops yet.</li>-->
             </div>
         </div>
     </div>

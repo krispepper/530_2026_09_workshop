@@ -76,4 +76,18 @@ def get_timeslots_for_workshop(workshop_id, user_id):
           AND (ts.is_public = 1 OR ts.id IN (SELECT private_timeslot_id FROM workshop_invitations WHERE userID = %s))
         ORDER BY ts.session_datetime ASC
     """
-    return fetch_data(query, (workshop_id, user_id))
+    return fetch_data(query, (workshop_id, user_id)) 
+
+def get_workshop_details_joined():
+    """Fetches the name and host of a specific workshop."""
+    query = """
+        SELECT w.id, w.workshop_name, COALESCE(h.host_name, 'Instructor TBA') AS host_name, 
+        FROM workshop w
+        LEFT JOIN hosts h ON w.hostID = h.id
+        LEFT JOIN timeslots
+        
+        
+    """
+    return fetch_data(query)
+        
+    

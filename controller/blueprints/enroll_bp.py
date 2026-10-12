@@ -15,8 +15,8 @@ def showEnroll():
             # Redirect to the login page if the user is not logged in
             return redirect(url_for("user.login"))
         user_id = session["user_id"]
-        slots = enroll.get_available_timeslots(user_id)
-        return render_template("enroll.html", slots=slots)
+        workshops = enroll.get_workshop_details_joined()
+        return render_template("enroll.html", workshops = workshops)
 
     except TemplateNotFound:
         flash("Enrollment page not found.")
@@ -68,3 +68,4 @@ def workshop_timeslots(workshop_id):
     except TemplateNotFound:
         flash("Timeslots page not found.")
         return redirect(url_for("home.home"))
+    

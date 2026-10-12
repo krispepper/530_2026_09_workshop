@@ -76,4 +76,43 @@ def get_timeslots_for_workshop(workshop_id, user_id):
           AND (ts.is_public = 1 OR ts.id IN (SELECT private_timeslot_id FROM workshop_invitations WHERE userID = %s))
         ORDER BY ts.session_datetime ASC
     """
-    return fetch_data(query, (workshop_id, user_id))
+    return fetch_data(query, (workshop_id, user_id)) 
+
+#function to query db for browsing ui for user view
+#hides stale workshops from users
+def get_workshop_details_joined():
+    """Fetches the name and host of a specific workshop."""
+    query = """
+        SELECT w.id, w.workshop_name, COALESCE(h.host_name, 'Instructor TBA') AS host_name,
+        COUNT(DISTINCT wts.id) AS available_timeslots,
+        MAX(wts.is_public)
+        FROM workshop w
+        LEFT JOIN hosts h ON w.hostID = h.id
+        LEFT JOIN workshop_time_slot AS wts ON w.id = wts.workshop_id
+        JOIN location l ON wts.location_id = l.id
+        WHERE wts.is_public = 1
+          AND wts.session_datetime >= CURDATE() + INTERVAL 1 DAY
+          AND (l.capacity - (SELECT COUNT(*) FROM workshop_roster r WHERE r.timeslot_id = wts.id)) > 0
+        GROUP BY w.id, w.workshop_name, h.host_name
+        
+    """
+    return fetch_data(query)
+    
+#function to query db for browsing ui for admin view
+#this can show stale workshops
+def get_workshop_details_joined_admin():
+    """Fetches the name and host of a specific workshop."""
+    query = """
+        SELECT w.id, w.workshop_name, COALESCE(h.host_name, 'Instructor TBA') AS host_name,
+        COUNT(DISTINCT wts.id) AS available_timeslots,
+        MAX(wts.is_public)
+        FROM workshop w
+        LEFT JOIN hosts h ON w.hostID = h.id
+        LEFT JOIN workshop_time_slot AS wts ON w.id = wts.workshop_id
+        GROUP BY w.id, w.workshop_name, h.host_name
+        
+        
+    """
+    return fetch_data(query)
+        
+    

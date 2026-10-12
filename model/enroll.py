@@ -81,12 +81,9 @@ def get_timeslots_for_workshop(workshop_id, user_id):
 def get_workshop_details_joined():
     """Fetches the name and host of a specific workshop."""
     query = """
-        SELECT w.id, w.workshop_name, COALESCE(h.host_name, 'Instructor TBA') AS host_name, 
+        SELECT w.id, w.workshop_name, COALESCE(h.host_name, 'Instructor TBA') AS host_name
         FROM workshop w
-        LEFT JOIN hosts h ON w.hostID = h.id
-        
-        
-        
+        LEFT JOIN hosts h ON w.hostID = h.id;
     """
     return fetch_data(query)
         

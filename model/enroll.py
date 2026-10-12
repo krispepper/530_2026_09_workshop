@@ -78,6 +78,8 @@ def get_timeslots_for_workshop(workshop_id, user_id):
     """
     return fetch_data(query, (workshop_id, user_id)) 
 
+#function to query db for browsing ui for user view
+#hides stale workshops from users
 def get_workshop_details_joined():
     """Fetches the name and host of a specific workshop."""
     query = """
@@ -95,7 +97,9 @@ def get_workshop_details_joined():
         
     """
     return fetch_data(query)
-
+    
+#function to query db for browsing ui for admin view
+#this can show stale workshops
 def get_workshop_details_joined_admin():
     """Fetches the name and host of a specific workshop."""
     query = """

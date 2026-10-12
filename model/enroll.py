@@ -84,7 +84,7 @@ def get_workshop_details_joined():
         SELECT w.id, w.workshop_name, COALESCE(h.host_name, 'Instructor TBA') AS host_name, 
         FROM workshop w
         LEFT JOIN hosts h ON w.hostID = h.id
-        LEFT JOIN timeslots
+        
         
         
     """

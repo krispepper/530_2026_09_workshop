@@ -94,5 +94,19 @@ def get_workshop_details_joined():
         
     """
     return fetch_data(query)
+
+def get_workshop_details_joined_admin():
+    """Fetches the name and host of a specific workshop."""
+    query = """
+        SELECT w.id, w.workshop_name, COALESCE(h.host_name, 'Instructor TBA') AS host_name,
+        COUNT(DISTINCT wts.id) AS available_timeslots
+        FROM workshop w
+        LEFT JOIN hosts h ON w.hostID = h.id
+        LEFT JOIN workshop_time_slot AS wts ON w.id = wts.workshop_id
+        GROUP BY w.id, w.workshop_name, h.host_name
+        
+        
+    """
+    return fetch_data(query)
         
     

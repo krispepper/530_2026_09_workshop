@@ -9,7 +9,7 @@ workshop_bp = Blueprint('workshop', __name__, template_folder='templates')
 @workshop_bp.route("/workshop")
 def showWorkshop():
     try:
-        workshops = enroll.get_workshop_details_joined()
+        workshops = enroll.get_workshop_details_joined_admin()
         hosts = workshop.get_all_hosts()
         locations = workshop.get_all_locations()
         return render_template("workshop.html", workshops=workshops, hosts=hosts, locations=locations)

@@ -8,14 +8,53 @@
             <a class="nav-link" href="/workshop">Workshops</a>
             <a class="nav-link" href="/admin">Admin</a>
             <a class="nav-link" href="/register">Sign Up</a>
-            <a class="nav-link" href="/change-password">Change Password</a>
             <a class="nav-link" href="/enroll">Enroll</a>
             <!--TS-S2-->
-            <a class="nav-link" href="/account">Account Info</a>
-            <a class="nav-link text-danger" href="/logout">Logout</a>
+            <!--Account dropdown-->
+            <div class="acc-dropdown">
+              <a href="#" class="nav-link">Account</a>
+              <div class="dropdown-content">
+                <a class="nav-link" href="/account">Account Info</a>
+                <a class="nav-link" href="/change-password">Change Password</a>
+                <a class="nav-link text-danger" href="/logout">Logout</a>
+              </div>
+            </div>
         </div>
     </div>
 </nav>
+
+<!--CSS styling for dropdown-->
+<style>
+  /*Positioning dropdown bar undrneath account*/
+  .acc-dropdown{
+    position: relative;
+  }
+  /*default: hides all dropdown content*/
+  .dropdown-content{
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    min-width: 180px;
+    background-color: cornflowerblue;
+    z-index: 1000;
+    border-radius: 15%;
+    padding: 10%;
+  }
+  /*the dropdown content and the text color*/
+  .dropdown-content a{
+    display: block;
+    padding: 10px;
+    color: white;
+    text-decoration: none;
+    text-align: justify;
+  }
+  /*When hovering over account, the content will be revealed*/
+    .acc-dropdown:hover .dropdown-content,
+    .acc-dropdown:focus-within .dropdown-content{
+      display: block;
+  }
+</style>
 
 {% with messages = get_flashed_messages() %}
   {% if messages %}

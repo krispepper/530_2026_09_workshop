@@ -95,8 +95,8 @@
                             <h5 class="fw-bold mb-1">{{ workshop[1] }}</h5> <!-- Workshop Name -->
                             <div class="text-muted small mb-2">
                                 <strong>Host:</strong> {{ workshop[2] }} | 
-                                <strong>Upcoming Time Slots:</strong> {{ workshop[3] }}
-                                <strong>{{ "Open Enrollment" if workshop[4] == 1 else "Invite Only" }}</strong> 
+                                <strong>Upcoming Time Slots:</strong> {{ workshop[3] }} | 
+                                <strong>{{ "Public" if workshop[4] == 1 else "Invite Only" }}</strong> 
                             </div>
                             <span class="badge bg-success">
                                 {{ workshop[5] }} Spots Available

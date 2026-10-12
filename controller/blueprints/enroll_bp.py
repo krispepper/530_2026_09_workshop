@@ -42,3 +42,29 @@ def createEnrollment():
     except TemplateNotFound:
         flash("Enrollment page not found.")
         return redirect(url_for("home.home"))
+
+# Route to display available timeslots for one specific workshop
+@enroll_bp.route("/workshop/<int:workshop_id>/timeslots", methods=["GET"])
+def workshop_timeslots(workshop_id):
+    try:
+        # Check if the user is logged in
+        if "user_id" not in session:
+            flash("Please log in first to view workshop timeslots.")
+            return redirect(url_for("user.login"))
+            
+        user_id = session["user_id"]
+        
+        # Get the workshop details and the available timeslots
+        workshop = enroll.get_workshop_details(workshop_id)
+        if not workshop:
+            flash("Workshop not found.")
+            return redirect(url_for("home.home"))
+            
+        slots = enroll.get_timeslots_for_workshop(workshop_id, user_id)
+        
+        # Send the data to our new HTML template
+        return render_template("workshop_timeslots.html", workshop=workshop, slots=slots)
+
+    except TemplateNotFound:
+        flash("Timeslots page not found.")
+        return redirect(url_for("home.home"))

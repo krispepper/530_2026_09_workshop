@@ -47,3 +47,33 @@ def enroll_in_workshop(user_id, timeslot_id):
     # Record the user's enrollment into a specific workshop timeslot in the roster table
     query = "INSERT INTO workshop_roster (personID, timeslot_id) VALUES (%s, %s)"
     execute_query(query, (user_id, timeslot_id))
+
+def get_workshop_details(workshop_id):
+    """Fetches the name and host of a specific workshop."""
+    query = """
+        SELECT w.id, w.workshop_name, COALESCE(h.host_name, 'Instructor TBA') AS host_name
+        FROM workshop w
+        LEFT JOIN hosts h ON w.hostID = h.id
+        WHERE w.id = %s
+    """
+    result = fetch_data(query, (workshop_id,))
+    # fetch_data returns a list of tuples, so we return the first item if it exists
+    return result[0] if result else None
+
+def get_timeslots_for_workshop(workshop_id, user_id):
+    """
+    Fetches available future timeslots for a specific workshop.
+    Checks for public slots OR private slots the user is invited to.
+    """
+    query = """
+        SELECT ts.id, ts.session_datetime, l.location_name, ts.is_public,
+               (l.capacity - (SELECT COUNT(*) FROM workshop_roster r WHERE r.timeslot_id = ts.id)) AS spots_left
+        FROM workshop_time_slot ts
+        JOIN location l ON ts.location_id = l.id
+        WHERE ts.workshop_id = %s
+          AND ts.session_datetime >= CURDATE() + INTERVAL 1 DAY
+          AND (l.capacity - (SELECT COUNT(*) FROM workshop_roster r WHERE r.timeslot_id = ts.id)) > 0
+          AND (ts.is_public = 1 OR ts.id IN (SELECT private_timeslot_id FROM workshop_invitations WHERE userID = %s))
+        ORDER BY ts.session_datetime ASC
+    """
+    return fetch_data(query, (workshop_id, user_id))

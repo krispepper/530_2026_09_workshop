@@ -81,9 +81,17 @@ def get_timeslots_for_workshop(workshop_id, user_id):
 def get_workshop_details_joined():
     """Fetches the name and host of a specific workshop."""
     query = """
-        SELECT w.id, w.workshop_name, COALESCE(h.host_name, 'Instructor TBA') AS host_name
+        SELECT w.id, w.workshop_name, COALESCE(h.host_name, 'Instructor TBA') AS host_name,
+        COUNT(DISTINCT wts.id) AS available_timeslots
         FROM workshop w
-        LEFT JOIN hosts h ON w.hostID = h.id;
+        LEFT JOIN hosts h ON w.hostID = h.id
+        LEFT JOIN workshop_time_slot AS wts ON w.id = wts.workshop_id
+        JOIN location l ON wts.location_id = l.id
+        WHERE wts.is_public = 1
+          AND wts.session_datetime >= CURDATE() + INTERVAL 1 DAY
+          AND (l.capacity - (SELECT COUNT(*) FROM workshop_roster r WHERE r.timeslot_id = wts.id)) > 0
+        GROUP BY w.id, w.workshop_name, h.host_name
+        
     """
     return fetch_data(query)
         

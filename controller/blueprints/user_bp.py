@@ -73,14 +73,24 @@ def changePassword():
 #(TS-S2) Route to display users account page
 @user_bp.route("/account")
 def accountInfo():
-    #Check to see if user is logged in, if not, the user gets redirected to the login page.
     if "user_id" not in session:
         return redirect(url_for("user.login"))
-    #Get user id and then find out what workshops the user is enrolled in.
+        
     user_id = session["user_id"]
+    
     workshops = account.get_workshops_for_account(user_id)
+    hosted_workshops = account.get_hosted_workshops(user_id)
+    hosted_timeslots = account.get_hosted_timeslots(user_id)
+    
+    # Fetch the user's permission level
+    perms = account.get_user_permission(user_id)
 
-    return render_template("account.html",workshops = workshops)
+    # Pass the 'perms' variable into the template
+    return render_template("account.html", 
+                           workshops=workshops, 
+                           hosted_workshops=hosted_workshops, 
+                           hosted_timeslots=hosted_timeslots,
+                           perms=perms)
 
 @user_bp.route("/cancelEnrollment", methods=["POST"])
 def cancelEnrollment():
@@ -99,4 +109,26 @@ def cancelEnrollment():
     flash("Successfully canceled your enrollment.")
     
     # Redirect right back to the account page to see the updated list
+    return redirect(url_for("user.accountInfo"))
+
+@user_bp.route("/deleteWorkshop", methods=["POST"])
+def deleteWorkshop():
+    if "user_id" not in session:
+        return redirect(url_for("user.login"))
+        
+    workshop_id = request.form["workshop_id"]
+    account.delete_workshop(workshop_id)
+    
+    flash("Entire workshop and all its timeslots successfully deleted.")
+    return redirect(url_for("user.accountInfo"))
+
+@user_bp.route("/deleteTimeslot", methods=["POST"])
+def deleteTimeslot():
+    if "user_id" not in session:
+        return redirect(url_for("user.login"))
+        
+    timeslot_id = request.form["timeslot_id"]
+    account.delete_timeslot(timeslot_id)
+    
+    flash("Specific timeslot successfully deleted.")
     return redirect(url_for("user.accountInfo"))

@@ -1,4 +1,4 @@
-
+#legacy emssaging system for hello world
 from flask import Blueprint, render_template, redirect, request, url_for, flash
 from jinja2.exceptions import TemplateNotFound
 from model.model import model

@@ -1,4 +1,4 @@
-
+#Purpose: render templates related to user accounts
 from flask import Blueprint, render_template, request, redirect, url_for, session, flash
 from model import user
 from jinja2.exceptions import TemplateNotFound

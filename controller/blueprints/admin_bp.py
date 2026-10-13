@@ -1,3 +1,5 @@
+#Purpose: render template for admin account creation 
+#This allows admin to add hosts
 from flask import Blueprint, render_template, redirect, abort
 from jinja2.exceptions import TemplateNotFound
 

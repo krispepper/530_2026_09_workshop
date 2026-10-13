@@ -1,3 +1,4 @@
+#Purpose: render pages realted to workshop enrollment
 from flask import Blueprint, render_template, request, redirect, url_for, session, flash
 from jinja2.exceptions import TemplateNotFound
 from model import enroll

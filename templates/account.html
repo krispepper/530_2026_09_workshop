@@ -26,18 +26,51 @@ An account page that will display all of the workshops the user has enrolled in-
                 <hr>
                 <h4 class="text-center mb-4">Enrolled Workshops</h4>
                 <!--example workshops; need to connect to db when finished-->
-                <ul class="list-group">
+                <!--<ul class="list-group">
                     <!--The format will be workshop name on the left, and the ID number on the right-->
-                    <li class="list-group-item">Flexing Workshop<span class="text-muted float-end">ID: 1</span></li>
+                    <!--<li class="list-group-item">Flexing Workshop<span class="text-muted float-end">ID: 1</span></li>
                     <li class="list-group-item">Junk Journaling 101<span class="text-muted float-end">ID: 2</span></li>
-                </ul>
+                    <li class="list-group-item">Partying 101<span class="text-muted float-end">ID: 3</span></li>
+
+                </ul>-->
+               
+            
+            <ul class="list-group list-group-flush gap-2">
+                <!--display what workshops the user is enrolled in-->
+                {% for workshop in workshops %}
+                   
+                    <li class="list-group-item d-flex justify-content-between align-items-center p-4">
+                        <div>
+                            <h5 class="fw-bold mb-1">{{ workshop[3] }}</h5> 
+                            <div class="text-muted small mb-2">
+                                <strong>Host:</strong> {{ workshop[4] }} | 
+                                <!--<strong>Upcoming Time Slots:</strong> {{ workshop[3] }} |--> 
+                                <strong>{{ "Public" if workshop[4] == 1 else "Invite Only" }}</strong> 
+                            </div>
+                            <span class="badge bg-success">
+                                {{ workshop[5] }} Spots Available
+                            </span>
+                        </div>
+                        
+                        <!-- Right side: Enroll button form -->
+                        <!-- The ID is kept in a hidden input type, so the user never sees it -->
+                        <form action="#" method="POST" class="m-0">
+                            <input type="hidden" name="timeslot_id" value="{{ workshop[0] }}">
+                            <a href="/workshop/{{ workshop[0] }}/timeslots" class="btn btn-primary px-4 fw-bold">Cancel</a>
+                        </form>
+                    </li>
+                        
+                {% endfor %}
+            </ul>
+        
+                
                         <!-- OR if the person isnt enrolled in any workshops-->
                         <!--<li class="list-group-item text-muted text-center">You have not enrolled in any workshops yet.</li>-->
 
                 <!--Browse workshops button that navigates back to workshops page-->
                 <hr>
                 <p class="text-center mb-4">Want to enroll in more workshops?</p>
-                <a href="/workshop" class="btn btn-primary w-100">Browse Workshops</a>
+                <a href="/enroll" class="btn btn-primary w-100">Browse Workshops</a>
                         
             </div>
         </div>

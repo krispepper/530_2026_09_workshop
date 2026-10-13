@@ -2,6 +2,7 @@
 from flask import Blueprint, render_template, request, redirect, url_for, session, flash
 from model import user
 from jinja2.exceptions import TemplateNotFound
+from model import account
 
 user_bp = Blueprint('user', __name__, template_folder='templates')
 
@@ -75,12 +76,8 @@ def accountInfo():
     #Check to see if user is logged in, if not, the user gets redirected to the login page.
     if "user_id" not in session:
         return redirect(url_for("user.login"))
-    #Get user id
+    #Get user id and then find out what workshops the user is enrolled in.
     user_id = session["user_id"]
-    #Get users information
-    #user_info = session[]
-    #Get enrolled workshop information  
-    #workshop_info = session[ ]
-    #Render html page  
-    return render_template("account.html")
-    
+    workshops = account.get_workshops_for_account(user_id)
+
+    return render_template("account.html",workshops = workshops)

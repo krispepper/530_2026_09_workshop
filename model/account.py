@@ -12,3 +12,8 @@ def get_workshops_for_account(user_id):
     WHERE u.id = %s"""
 
     return fetch_data(query, (user_id,))
+
+def cancel_enrollment(user_id, timeslot_id):
+    # SQL query to remove the user's enrollment record for a specific timeslot
+    query = "DELETE FROM workshop_roster WHERE personID = %s AND timeslot_id = %s"
+    execute_query(query, (user_id, timeslot_id))

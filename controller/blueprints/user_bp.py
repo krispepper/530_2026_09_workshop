@@ -81,3 +81,22 @@ def accountInfo():
     workshops = account.get_workshops_for_account(user_id)
 
     return render_template("account.html",workshops = workshops)
+
+@user_bp.route("/cancelEnrollment", methods=["POST"])
+def cancelEnrollment():
+    # Security check: ensure the user is logged in
+    if "user_id" not in session:
+        return redirect(url_for("user.login"))
+        
+    user_id = session["user_id"]
+    
+    # Grab the timeslot_id sent by our hidden form input
+    timeslot_id = request.form["timeslot_id"]
+    
+    # Call the new database function we just created
+    account.cancel_enrollment(user_id, timeslot_id)
+    
+    flash("Successfully canceled your enrollment.")
+    
+    # Redirect right back to the account page to see the updated list
+    return redirect(url_for("user.accountInfo"))

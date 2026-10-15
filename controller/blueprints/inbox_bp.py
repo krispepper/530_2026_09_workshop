@@ -33,5 +33,14 @@ def sendInviteRequest():
         flash("An error occured when requesting for an invite!")
 
     return redirect(url_for("browse.showEnroll"))
-    
-    
+
+@inbox_bp.route("/deleteMail", methods=["POST"])
+def deleteMail():
+    try: 
+        id = request.form["id"]
+        inbox.delete_mail(id)
+        flash("Deleted message!")
+    except: 
+        flash("An error occured when try to delete a message!")
+
+    return redirect(url_for("inbox.showInbox"))

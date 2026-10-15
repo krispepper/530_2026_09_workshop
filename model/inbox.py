@@ -20,3 +20,11 @@ def create_invite_request(personID,timeslot_id):
         VALUES(%s,%s)
     """
     return execute_query(query,(personID,timeslot_id,))
+
+def delete_mail(id):
+    query= """
+       DELETE FROM inbox_messages
+       WHERE id = %s
+        
+    """
+    return execute_query(query,(id,))

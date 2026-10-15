@@ -4,6 +4,21 @@ from jinja2.exceptions import TemplateNotFound
 from model import enroll
 
 enroll_bp = Blueprint('enroll', __name__, template_folder='templates')
+# Route to handle saving a user's workshop enrollment
+@enroll_bp.route("/createEnrollmentForInviteRequest", methods=["POST"])
+def createEnrollmentForInviteRequest():
+    try:
+        user_id = request.form["user_id"]
+        timeslot_id = request.form["timeslot_id"]
+        name = request.form["name"]
+        enroll.enroll_in_workshop(user_id, timeslot_id)
+        flash("Successfully enrolled" + name + "in workshop")
+        # Redirect to the home page after successful enrollment
+        return redirect(url_for("inbox.showInbox"))
+
+    except TemplateNotFound:
+        flash("Enrollment page not found.")
+        return redirect(url_for("home.home"))
 
 # Route to handle saving a user's workshop enrollment
 @enroll_bp.route("/createEnrollment", methods=["POST"])

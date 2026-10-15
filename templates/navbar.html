@@ -20,8 +20,9 @@
           {% endif %}
           
           <a class="nav-link" href="/browse">Browse</a>
+          {%if not loggedIn %}
           <a class="nav-link" href="/register">Sign Up</a>
-
+          {% endif %}
           <!--TS-S2-->
           <!--Account dropdown-->
           <div class="dropdown">

@@ -9,3 +9,10 @@ def get_inbox_messages():
         FROM inbox_messages
     """
     return fetch_data(query)
+
+def create_invite_request(personID,timeslot_id):
+    query= """
+        INSERT INTO inbox_messages(personID,timeslot_id)
+        VALUES(%s,%s)
+    """
+    return execute_query(query,(personID,timeslot_id,))

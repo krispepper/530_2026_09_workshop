@@ -16,3 +16,22 @@ def showInbox():
         # Redirect to the home page if there is an error rendering the template
         return redirect(url_for('home.home'))
         
+@inbox_bp.route("/createInviteRequest", methods=["POST"])
+def sendInviteRequest():
+    try:
+        # SAFETY CHECK: Prevent the KeyError if they somehow get here without logging in
+        if "user_id" not in session:
+            flash("Please log in first to enroll in workshops.")
+            return redirect(url_for("user.login"))
+            
+        user_id = session["user_id"]
+        timeslot_id = request.form["timeslot_id"]
+        inbox.create_invite_request(user_id,timeslot_id)
+        flash("Invite request sent!")
+        
+    except: 
+        flash("An error occured when requesting for an invite!")
+
+    return redirect(url_for("browse.showEnroll"))
+    
+    

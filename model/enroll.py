@@ -55,6 +55,8 @@ def get_workshop_details(workshop_id):
         FROM workshop w
         LEFT JOIN hosts h ON w.hostID = h.id
         WHERE w.id = %s
+        
+
     """
     result = fetch_data(query, (workshop_id,))
     # fetch_data returns a list of tuples, so we return the first item if it exists

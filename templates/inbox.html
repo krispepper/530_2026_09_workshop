@@ -1,0 +1,48 @@
+<!-- Purpose: Enrollment template providing a selection form for users to register for available public or private workshop time slots. -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Enroll in Workshop</title>
+    <!-- Bootstrap CSS for layout and styling -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+    {% include 'navbar.html' %}
+    
+    <!-- Main Container -->
+    <div class="container">
+        <div class="card shadow-sm mx-auto mt-5" style="max-width: 600px;">
+            <div class="card-body">
+                <h3 class="card-title text-center mb-4 text-primary">Enroll in a Workshop</h3>
+                <!-- Dynamic greeting displaying the logged-in user's name from session data -->
+                <p class="text-center text-muted mb-4">Welcome, <strong>{{ session.get('user_name') }}</strong>! Select an available workshop below.</p>
+                
+                <!-- Enrollment submission form pointing to /createEnrollment route -->
+                
+                    <span class="form-label text-primary fw-bold d-block text-center">Available Workshops (Public & Private Invites)</span>
+                     
+        <div class="card mb-4 shadow-sm">
+            
+            <ul class="list-group list-group-flush gap-2">
+                {% for message in messages %}
+                   
+                    <li class="list-group-item d-flex justify-content-between align-items-center p-4">
+                       
+                        <p>{{message[0]}} {{message[1]}} {{message[2]}} {{message[3]}}</p>
+                   
+                     
+                    </li>
+                        
+                {% endfor %}
+            </ul>
+        </div>
+
+                    
+            </div>
+        </div>
+    </div>
+    <!-- Bootstrap JS is required to allow the flash message close button to work -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

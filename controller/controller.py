@@ -6,6 +6,7 @@ from controller.blueprints.user_bp import user_bp
 from controller.blueprints.enroll_bp import enroll_bp
 from controller.blueprints.admin_bp import admin_bp
 from controller.blueprints.browse_bp import browse_bp
+from controller.blueprints.inbox_bp import inbox_bp
 from flask import session
 
 #context processor to inject session into base template navbar
@@ -25,6 +26,7 @@ def injectUser():
 def manageRoutes(app):
     app.context_processor(injectUser)
     app.register_blueprint(home_bp)
+    app.register_blueprint(inbox_bp)
     app.register_blueprint(admin_bp)
     app.register_blueprint(browse_bp)
     #app.register_blueprint(message_bp)

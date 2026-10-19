@@ -25,6 +25,7 @@ def injectUser():
 #registers routes from the blueprints folder
 def manageRoutes(app):
     app.context_processor(injectUser)
+    
     app.register_blueprint(home_bp)
     app.register_blueprint(inbox_bp)
     app.register_blueprint(admin_bp)

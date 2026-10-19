@@ -5,11 +5,9 @@
         
         <div class="navbar-nav">
             <a class="nav-link" href="/">Home</a>
-            <a class="nav-link" href="/workshop">Workshops</a>
+            <a class="nav-link" href="/workshop">Create</a>
             <a class="nav-link" href="/admin">Admin</a>
-            <a class="nav-link" href="/enroll">Enroll</a>
             <a class="nav-link" href="/register">Sign Up</a>
-            <a class="nav-link" href="/allworkshops">All Workshops</a>
 
             <!--TS-S2-->
             <!--Account dropdown-->
@@ -21,10 +19,19 @@
                 <li><a class="dropdown-item" href="/account">Account Info</a></li>
                 <li><a class="dropdown-item" href="/change-password">Change Password</a></li>
                 <li><a class="dropdown-item text-danger" href="/logout">Logout</a></li>
-                <li><a class="nav-link" href="/enroll">Enroll</a></li>
               </ul>
             </div>
-            
+            <!--all workshop functions-->
+            <div class="dropdown">
+              <a class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Workshops
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <li><a class="dropdown-item" href="/allworkshops">All Workshops</a></li>
+                <li><a class="dropdown-item" href="/enroll">Enroll</a></li>
+              </ul>
+            </div>
+
         </div>
     </div>
 </nav>

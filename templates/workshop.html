@@ -10,50 +10,36 @@
 <body class="bg-light">
     {% include 'navbar.html' %}
     
-    <div class="container">
-        <h2 class="mb-4 text-center">Workshop Creation System</h2>
-
-        <div class="row">
+    <div class="card shadow-sm mx-auto mt-4" style="max-width: 600px;">
+        <div class="card-body">
+            <!--main title-->
+            <h3 class="card-title text-center mb-4 text-primary">Create Workshop</h3>
             
             <!-- Location Form Card -->
-            <div class="col-md-6 mb-4">
-                <div class="card shadow-sm h-100">
-                    <div class="card-body">
-                        <h5 class="card-title text-success">1. Create Location<span class="text-danger">*</span></label></h5>
-                        <!-- Form submitting to create a new workshop location -->
-                        <form action="/createLocation" method="POST">
-                            <input type="text" class="form-control mb-2" name="location_name" placeholder="Room Name" required>
-                            <input type="number" class="form-control mb-3" name="capacity" placeholder="Capacity" required>
-                            <button type="submit" class="btn btn-success w-100">Add Location</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-
+            
+            <h5 class="card-title text-success">1. Create Location<span class="text-danger">*</span></label></h5>
+                <!-- Form submitting to create a new workshop location -->
+                <form action="/createLocation" method="POST">
+                <input type="text" class="form-control mb-2" name="location_name" placeholder="Room Name" required>
+                <input type="number" class="form-control mb-3" name="capacity" placeholder="Capacity" required>
+                <button type="submit" class="btn btn-success w-100">Add Location</button>
+                </form>
+                <hr>
             <!-- Workshop Form Card -->
-            <div class="col-md-6 mb-4">
-                <div class="card shadow-sm h-100">
-                    <div class="card-body">
-                        <h5 class="card-title text-primary">2. Create Workshop<span class="text-danger">*</span></label></h5>
-                        <!-- Form submitting to create a new workshop linked to a host -->
-                        <form action="/createWorkshop" method="POST">
-                            <select class="form-select mb-2" name="hostID" required>
-                                <option value="" disabled selected>Select Host</option>
-                                {% for host in hosts %}
-                                    <option value="{{ host[0] }}">{{ host[1] }}</option>
-                                {% endfor %}
-                            </select>
-                            <input type="text" class="form-control mb-3" name="workshop_name" placeholder="Workshop Name" required>
-                            <button type="submit" class="btn btn-primary w-100">Create Workshop</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-
+                <h5 class="card-title text-primary">2. Create Workshop<span class="text-danger">*</span></label></h5>
+                    <!-- Form submitting to create a new workshop linked to a host -->
+                    <form action="/createWorkshop" method="POST">
+                        <select class="form-select mb-2" name="hostID" required>
+                             <option value="" disabled selected>Select Host</option>
+                             {% for host in hosts %}
+                                <option value="{{ host[0] }}">{{ host[1] }}</option>
+                            {% endfor %}
+                        </select>
+                        <input type="text" class="form-control mb-3" name="workshop_name" placeholder="Workshop Name" required>
+                        <button type="submit" class="btn btn-primary w-100">Create Workshop</button>
+                    </form>
+                    <hr>
             <!-- Time Slot Form Card -->
-            <div class="col-md-6 mb-4">
-                <div class="card shadow-sm h-100">
-                    <div class="card-body">
                         <h5 class="card-title text-primary">3. Create Time Slot<span class="text-danger">*</span></label></h5>
                         <!-- Form submitting to schedule a new workshop time slot -->
                         <form action="/createTimeslot" method="POST">
@@ -76,12 +62,7 @@
                             </div>
                             <button type="submit" class="btn btn-primary w-100">Create Time Slot</button>
                         </form>
-                    </div>
-                </div>
-            </div>
-
             
-        
         <!-- Data Display Card showing known workshops -->
         <h2 class="mb-4 text-center">Currently Posted Workshops</h2>
         <div class="card mb-4 shadow-sm">

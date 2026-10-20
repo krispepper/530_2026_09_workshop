@@ -1,44 +1,38 @@
 <!-- templates/navbar.html -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
     <div class="container">
-      <a class="navbar-brand" href="/">Project Dashboard</a>
-      
-
-       
-      <div class="navbar-nav">
-          {%if loggedIn %}
-            <a class="nav-link">Logged in as {{loggedIn.name}}</a>
-          {% endif %}
-         
-          <a class="nav-link" href="/">Home</a>
-          {%if loggedIn and loggedIn.perms == "host" or loggedIn.perms == "admin" %}
-            <a class="nav-link" href="/workshop">Workshops</a>
-          {% endif %}
-
-          {%if loggedIn and loggedIn.perms == "admin" %}
+        <a class="navbar-brand" href="/">Project Dashboard</a>
+        
+        <div class="navbar-nav">
+            <a class="nav-link" href="/">Home</a>
+            <a class="nav-link" href="/workshop">Create</a>
             <a class="nav-link" href="/admin">Admin</a>
-            <a class="nav-link" href="/inbox">Inbox</a>
-          {% endif %}
-          
-          <a class="nav-link" href="/browse">Browse</a>
-          {%if not loggedIn %}
-          <a class="nav-link" href="/register">Sign Up</a>
-          {% endif %}
-          <!--TS-S2-->
-          <!--Account dropdown-->
-          <div class="dropdown">
-            <a class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Account
-            </a>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-              <li><a class="dropdown-item" href="/account">Account Info</a></li>
-              <li><a class="dropdown-item" href="/change-password">Change Password</a></li>
-              <li><a class="dropdown-item text-danger" href="/logout">Logout</a></li>
-            </ul>
-          </div>
-      </div>
-      
+            <a class="nav-link" href="/register">Sign Up</a>
 
+            <!--TS-S2-->
+            <!--Account dropdown-->
+            <div class="dropdown">
+              <a class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Account
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <li><a class="dropdown-item" href="/account">Account Info</a></li>
+                <li><a class="dropdown-item" href="/change-password">Change Password</a></li>
+                <li><a class="dropdown-item text-danger" href="/logout">Logout</a></li>
+              </ul>
+            </div>
+            <!--all workshop functions-->
+            <div class="dropdown">
+              <a class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Workshops
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <li><a class="dropdown-item" href="/allworkshops">All Workshops</a></li>
+                <li><a class="dropdown-item" href="/enroll">Enroll</a></li>
+              </ul>
+            </div>
+
+        </div>
     </div>
 </nav>
 

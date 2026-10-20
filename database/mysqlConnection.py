@@ -33,22 +33,17 @@ def fetch_data(query, params=None):
 def execute_query(query, params=None):
     # Connect to database, execute write query, commit changes, capture last inserted row ID, and close connections
     conn = connector()
-    try:
-        cursor = conn.cursor()
-        if params:
-            cursor.execute(query, params)
-        else:
-            cursor.execute(query)
-        conn.commit()
-        # Grab the ID of the row we just inserted
-        last_id = cursor.lastrowid 
-        
-        cursor.close()
-        conn.close()
-        
-        return last_id
-    except: 
-        conn.rollback
-        conn.close()
+    cursor = conn.cursor()
+    if params:
+        cursor.execute(query, params)
+    else:
+        cursor.execute(query)
+    conn.commit()
     
+    # Grab the ID of the row we just inserted
+    last_id = cursor.lastrowid 
     
+    cursor.close()
+    conn.close()
+    
+    return last_id

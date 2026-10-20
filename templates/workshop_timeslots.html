@@ -41,19 +41,10 @@
                                 </div>
                                 
                                 <!-- Right side: Enroll POST form -->
-                            {% if slot[3] == 1 %}
                                 <form action="/createEnrollment" method="POST" class="m-0">
                                     <input type="hidden" name="timeslot_id" value="{{ slot[0] }}">
                                     <button type="submit" class="btn btn-primary px-4 fw-bold">Enroll Now</button>
                                 </form>
-                            {% else %}
-                                <form action="/createInviteRequest" method="POST" class="m-0">
-                                    <input type="hidden" name="timeslot_id" value="{{ slot[0] }}">
-            
-                                    <button type="submit" class="btn btn-primary px-4 fw-bold">Request Invite</button>
-                                </form>
-                              
-                            {% endif %}
                                 
                             </li>
                         {% endfor %}

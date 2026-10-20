@@ -1,6 +1,7 @@
 <!--TS-S2-->
 <!--accounts.html
-An account page that will display all of the workshops the user has enrolled in-->
+An account page that will display all of the workshops the user has enrolled in,
+and host controls if the user has the appropriate permissions.-->
 
 <!DOCTYPE html>
 <html lang="en">
@@ -14,67 +15,137 @@ An account page that will display all of the workshops the user has enrolled in-
     {% include 'navbar.html' %}
 
     <!--main container-->
-    <div class = "container">
-        <div class="card shadow-sm mx-auto mt-5" style="max-width: 450px;">
+    <div class="container">
+        
+        <!-- Flash messages for successful actions -->
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-info alert-dismissible fade show mx-auto mt-4" style="max-width: 600px;" role="alert">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <div class="card shadow-sm mx-auto mt-4" style="max-width: 600px;">
             <div class="card-body">
                 <!--main title-->
                 <h3 class="card-title text-center mb-4 text-primary">Account Info</h3>
+                
                 <!--Message and button to redirect user to login-->
                 <p class="text-center mb-4">Welcome back, <strong>{{ session.get('user_name') }}</strong>!</p>
 
                 <!--Enrolled workshop section-->
                 <hr>
                 <h4 class="text-center mb-4">Enrolled Workshops</h4>
-                <!--example workshops; need to connect to db when finished-->
-                <!--<ul class="list-group">
-                    <!--The format will be workshop name on the left, and the ID number on the right-->
-                    <!--<li class="list-group-item">Flexing Workshop<span class="text-muted float-end">ID: 1</span></li>
-                    <li class="list-group-item">Junk Journaling 101<span class="text-muted float-end">ID: 2</span></li>
-                    <li class="list-group-item">Partying 101<span class="text-muted float-end">ID: 3</span></li>
-
-                </ul>-->
-               
-            
-            <ul class="list-group list-group-flush gap-2">
-                <!--display what workshops the user is enrolled in-->
-                {% for workshop in workshops %}
-                   
-                    <li class="list-group-item d-flex justify-content-between align-items-center p-4">
-                        <div>
-                            <h5 class="fw-bold mb-1">{{ workshop[3] }}</h5> 
-                            <div class="text-muted small mb-2">
-                                <strong>Host:</strong> {{ workshop[4] }} | 
-                                <!--<strong>Upcoming Time Slots:</strong> {{ workshop[3] }} |--> 
-                                <strong>{{ "Public" if workshop[4] == 1 else "Invite Only" }}</strong> 
-                            </div>
-                            <span class="badge bg-success">
-                                {{ workshop[5] }} Spots Available
-                            </span>
-                        </div>
-                        
-                        <!-- Right side: Enroll button form -->
-                        <!-- The ID is kept in a hidden input type, so the user never sees it -->
-                        <form action="/" method="POST" class="m-0">
-                            <input type="hidden" name="timeslot_id" value="{{ workshop[0] }}">
-                            <a href="/workshop/{{ workshop[0] }}/timeslots" class="btn btn-primary px-4 fw-bold">Cancel</a>
-                        </form>
-                    </li>
-                        
-                {% endfor %}
-            </ul>
-        
                 
-                        <!-- OR if the person isnt enrolled in any workshops-->
-                        <!--<li class="list-group-item text-muted text-center">You have not enrolled in any workshops yet.</li>-->
+                <ul class="list-group list-group-flush gap-2">
+                    <!-- Check if the user is enrolled in anything -->
+                    {% if workshops %}
+                        {% for workshop in workshops %}
+                            <!-- 
+                               workshop[0] = user_id
+                               workshop[1] = timeslot_id
+                               workshop[2] = workshop_id
+                               workshop[3] = workshop_name
+                               workshop[4] = host_name
+                               workshop[5] = is_public
+                            -->
+                            <li class="list-group-item d-flex justify-content-between align-items-center p-3 border rounded">
+                                <div>
+                                    <h5 class="fw-bold mb-1">{{ workshop[3] }}</h5> 
+                                    <div class="text-muted small">
+                                        <strong>Host:</strong> {{ workshop[4] }} | 
+                                        {% if workshop[5] == 1 %}
+                                            <span class="text-success fw-bold">Public</span>
+                                        {% else %}
+                                            <span class="text-warning fw-bold">Private Invite</span>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                
+                                <!-- Right side: Cancel button form -->
+                                <form action="/cancelEnrollment" method="POST" class="m-0">
+                                    <input type="hidden" name="timeslot_id" value="{{ workshop[1] }}">
+                                    <button type="submit" class="btn btn-danger px-3 fw-bold">Cancel</button>
+                                </form>
+                            </li>
+                        {% endfor %}
+                    {% else %}
+                        <!-- Show this if the list is empty -->
+                        <li class="list-group-item text-muted text-center p-4 border-0">
+                            You have not enrolled in any workshops yet.
+                        </li>
+                    {% endif %}
+                </ul>
+
+                <!-- NEW SECTION: Hosted Workshops -->
+                <!-- Only show if they have host or admin permissions AND they actually have hosted workshops -->
+                {% if (perms == 'host' or perms == 'admin') and hosted_workshops %}
+                    <hr class="mt-5">
+                    <h4 class="text-center mb-4 text-danger">My Hosted Workshops</h4>
+                    
+                    <ul class="list-group list-group-flush gap-4">
+                        {% for hw in hosted_workshops %}
+                            <!-- hw[0] = workshop_id, hw[1] = workshop_name -->
+                            <li class="list-group-item p-4 border border-danger rounded shadow-sm">
+                                
+                                <!-- Main Workshop Header -->
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <div>
+                                        <h5 class="fw-bold mb-1">{{ hw[1] }}</h5> 
+                                        <span class="badge bg-danger">Host Admin</span>
+                                    </div>
+                                    
+                                    <!-- Delete Entire Workshop Form -->
+                                    <form action="/deleteWorkshop" method="POST" class="m-0" onsubmit="return confirm('Are you sure you want to delete this ENTIRE workshop? All timeslots and student enrollments will be lost forever.');">
+                                        <input type="hidden" name="workshop_id" value="{{ hw[0] }}">
+                                        <button type="submit" class="btn btn-danger fw-bold">Delete Entire Workshop</button>
+                                    </form>
+                                </div>
+                                
+                                <!-- Individual Timeslots for this Workshop -->
+                                <h6 class="text-muted mt-3 mb-2">Manage Individual Timeslots:</h6>
+                                <ul class="list-group">
+                                    {% for ts in hosted_timeslots %}
+                                        <!-- ts[0] = workshop_id, ts[2] = timeslot_id, ts[3] = datetime, ts[4] = is_public -->
+                                        {% if ts[0] == hw[0] %}
+                                            <li class="list-group-item d-flex justify-content-between align-items-center bg-light">
+                                                <span class="small">
+                                                    <strong>Time:</strong> {{ ts[3] }} | 
+                                                    {% if ts[4] == 1 %} 
+                                                        <span class="text-success fw-bold">Public</span> 
+                                                    {% else %} 
+                                                        <span class="text-warning fw-bold">Private Invite</span> 
+                                                    {% endif %}
+                                                </span>
+                                                
+                                                <!-- Delete Specific Timeslot Form -->
+                                                <form action="/deleteTimeslot" method="POST" class="m-0" onsubmit="return confirm('Are you sure you want to cancel this specific timeslot? Students enrolled in this slot will be removed.');">
+                                                    <input type="hidden" name="timeslot_id" value="{{ ts[2] }}">
+                                                    <button type="submit" class="btn btn-outline-danger btn-sm fw-bold">Delete Timeslot</button>
+                                                </form>
+                                            </li>
+                                        {% endif %}
+                                    {% endfor %}
+                                </ul>
+                                
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
 
                 <!--Browse workshops button that navigates back to workshops page-->
-                <hr>
+                <hr class="mt-4">
                 <p class="text-center mb-4">Want to enroll in more workshops?</p>
-                <a href="/enroll" class="btn btn-primary w-100">Browse Workshops</a>
+                <a href="/home" class="btn btn-primary w-100">Browse Workshops</a>
                         
             </div>
         </div>
     </div>
+    
     <!-- Bootstrap JS is required to allow the flash message close button to work -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>

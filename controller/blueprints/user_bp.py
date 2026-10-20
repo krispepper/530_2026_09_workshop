@@ -78,14 +78,27 @@ def accountInfo():
         
     user_id = session["user_id"]
     
+    # 1. Fetch personal enrolled workshops (Everyone needs this)
     workshops = account.get_workshops_for_account(user_id)
-    hosted_workshops = account.get_hosted_workshops(user_id)
-    hosted_timeslots = account.get_hosted_timeslots(user_id)
     
-    # Fetch the user's permission level
+    # 2. Fetch the user's permission level BEFORE pulling management data
     perms = account.get_user_permission(user_id)
+    
+    # 3. Determine which management data to load based on their role
+    if perms == 'admin':
+        # Admins get to see and manage everything
+        hosted_workshops = account.get_all_workshops()
+        hosted_timeslots = account.get_all_timeslots()
+    elif perms == 'host':
+        # Hosts only see what they specifically created
+        hosted_workshops = account.get_hosted_workshops(user_id)
+        hosted_timeslots = account.get_hosted_timeslots(user_id)
+    else:
+        # Standard students see nothing in this section
+        hosted_workshops = []
+        hosted_timeslots = []
 
-    # Pass the 'perms' variable into the template
+    # Pass the 'perms' and data variables into the template
     return render_template("account.html", 
                            workshops=workshops, 
                            hosted_workshops=hosted_workshops, 

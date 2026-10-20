@@ -82,21 +82,22 @@ and host controls if the user has the appropriate permissions.-->
                 </ul>
 
                 <!-- NEW SECTION: Hosted Workshops -->
-                <!-- Only show if they have host or admin permissions AND they actually have hosted workshops -->
                 {% if (perms == 'host' or perms == 'admin') and hosted_workshops %}
                     <hr class="mt-5">
                     <h4 class="text-center mb-4 text-danger">My Hosted Workshops</h4>
                     
                     <ul class="list-group list-group-flush gap-4">
                         {% for hw in hosted_workshops %}
-                            <!-- hw[0] = workshop_id, hw[1] = workshop_name -->
+                            <!-- hw[0] = workshop_id, hw[1] = workshop_name, hw[2] = host_name -->
                             <li class="list-group-item p-4 border border-danger rounded shadow-sm">
                                 
                                 <!-- Main Workshop Header -->
                                 <div class="d-flex justify-content-between align-items-center mb-3">
                                     <div>
                                         <h5 class="fw-bold mb-1">{{ hw[1] }}</h5> 
-                                        <span class="badge bg-danger">Host Admin</span>
+                                        <div class="text-muted small mb-1">
+                                            <strong>Hosted by:</strong> {{ hw[2] }}
+                                        </div>
                                     </div>
                                     
                                     <!-- Delete Entire Workshop Form -->

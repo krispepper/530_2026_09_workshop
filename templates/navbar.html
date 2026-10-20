@@ -12,7 +12,9 @@
          
           <a class="nav-link" href="/">Home</a>
           {%if loggedIn and loggedIn.perms == "host" or loggedIn.perms == "admin" %}
-            <a class="nav-link" href="/workshop">Workshops</a>
+            <a class="nav-link" href="/workshop">Create</a>
+            <a class="nav-link" href="/cancel">Cancel</a>
+            
           {% endif %}
 
           {%if loggedIn and loggedIn.perms == "admin" %}

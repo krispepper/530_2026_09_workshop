@@ -61,11 +61,7 @@ def createTimeslot():
         flash("Timeslot creation page not found.")
         return redirect(url_for("workshop.showWorkshop"))
 
-        @workshop_bp.route("/allworkshops", methods=["GET"])
-
-
-
-
+        
 @workshop_bp.route("/cancel", methods=["GET"])
 def cancelWorkshops():
     if "user_id" not in session:

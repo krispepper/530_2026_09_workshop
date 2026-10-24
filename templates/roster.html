@@ -10,7 +10,7 @@
     {% include 'navbar.html' %}
 
     <div class="container mt-5">
-        <form>
+        <form action = "/createCSV" method="GET" >
             <h2 >
                 Workshop Name: {{ timeslotRoster[0][7] }}  
             </h2>
@@ -20,7 +20,7 @@
             <h2>
                 Workshop ID: {{ timeslotRoster[0][1] }}
             </h2>
-            
+
             <table>
                 <tr>
                     <th>ID</th>
@@ -38,6 +38,7 @@
                     </tr>
                 {% endfor %}
             </table>
+            <a href = "/createCSV/{{ timeslotRoster[0][1] }}/roster">Export to CSV</a>
 
         </form>
         

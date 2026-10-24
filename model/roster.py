@@ -1,5 +1,5 @@
 from database.mysqlConnection import fetch_data, execute_query
-
+from flask import Flask, send_file 
 def get_roster(timeslot_id):
     query = """
         SELECT wr.personID, wr.timeslot_id, u.firstName, u.lastName, u.perms, wts.workshop_id, h.host_name, w.workshop_name
@@ -12,6 +12,8 @@ def get_roster(timeslot_id):
     """
     return fetch_data(query, (timeslot_id,))
 
+
+    
    
 
     

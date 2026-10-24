@@ -48,7 +48,7 @@ def execute_query(query, params=None):
         
         return last_id
     except: 
-        conn.rollback
+        conn.rollback()
         conn.close()
     
     

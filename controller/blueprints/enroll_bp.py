@@ -55,15 +55,3 @@ def workshop_timeslots(workshop_id):
         flash("Timeslots page not found.")
         return redirect(url_for("home.home"))
     
-@enroll_bp.route("/timeslot/<int:timeslot_id>/roster", methods=["GET"])
-def show_roster(timeslot_id):
-    try:
-        # Get the workshop details and the available timeslots
-        timeslotRoster = roster.get_roster(timeslot_id)
-        
-        # Send the data to our new HTML template
-        return render_template("roster.html", timeslotRoster = timeslotRoster)
-
-    except TemplateNotFound:
-        flash("Timeslots page not found.")
-        return redirect(url_for("home.home"))

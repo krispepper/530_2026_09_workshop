@@ -10,7 +10,14 @@
     {% include 'navbar.html' %}
 
     <div class="container mt-5">
-       
+        <div class="alert alert-info alert-dismissible fade show" role="alert">
+            Workshop Host: {{ timeslotRoster[0][6] }} Workshop ID: {{ timeslotRoster[0][1] }} Workshop Name: {{ timeslotRoster[0][7] }}
+        </div>
+       {% for item in timeslotRoster %}
+                    <div class="alert alert-info alert-dismissible fade show" role="alert">
+                        ID: {{ item[0] }} First Name: {{ item[2] }} Last Name: {{ item[3] }} Permission Level: {{ item[4] }}  
+                    </div>
+        {% endfor %}
         
     
     </div>

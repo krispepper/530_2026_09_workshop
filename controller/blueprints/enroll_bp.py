@@ -1,7 +1,7 @@
 #Purpose: render pages realted to workshop enrollment
 from flask import Blueprint, render_template, request, redirect, url_for, session, flash
 from jinja2.exceptions import TemplateNotFound
-from model import enroll
+from model import enroll, roster
 
 enroll_bp = Blueprint('enroll', __name__, template_folder='templates')
 # Route to handle saving a user's workshop enrollment
@@ -59,10 +59,10 @@ def workshop_timeslots(workshop_id):
 def show_roster(timeslot_id):
     try:
         # Get the workshop details and the available timeslots
-        
+        timeslotRoster = roster.get_roster(timeslot_id)
         
         # Send the data to our new HTML template
-        return render_template("roster.html")
+        return render_template("roster.html", timeslotRoster = timeslotRoster)
 
     except TemplateNotFound:
         flash("Timeslots page not found.")

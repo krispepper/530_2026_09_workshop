@@ -101,7 +101,7 @@ def get_workshop_details_joined():
     """Fetches the name and host of a specific workshop."""
     query = """
         SELECT w.id, w.workshop_name, COALESCE(h.host_name, 'Instructor TBA') AS host_name,
-        COUNT(DISTINCT wts.id) AS available_timeslots,
+        COUNT(DISTINCT wts.id) AS available_timeslots, w.workshop_description,
         MAX(wts.is_public)
         FROM workshop w
         LEFT JOIN hosts h ON w.hostID = h.id

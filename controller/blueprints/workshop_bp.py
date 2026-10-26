@@ -26,7 +26,8 @@ def createWorkshop():
     try:
         workshop_name = request.form["workshop_name"]
         hostID = request.form["hostID"]
-        workshop.create_workshop(workshop_name, hostID)
+        workshop_description = request.form["workshop_description"]
+        workshop.create_workshop(workshop_name, hostID, workshop_description)
         return redirect(url_for("workshop.showWorkshop"))
 
     except TemplateNotFound:

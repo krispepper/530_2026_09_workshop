@@ -33,10 +33,10 @@
                             <div class="text-muted small mb-2">
                                 <strong>Host:</strong> {{ workshop[2] }} | 
                                 <strong>Upcoming Time Slots:</strong> {{ workshop[3] }} | 
-                                <strong>{{ "Public" if workshop[4] == 1 else "Invite Only" }}</strong> 
-                            </div>
+                                <strong>{{ "Public" if workshop[4] == 1 else "Invite Only" }}</strong>
+                                <strong>{{ workshop[4] }}</strong>
                             <span class="badge bg-success">
-                                {{ workshop[5] }} Spots Available
+                                {{ workshop[6] }} Spots Available
                             </span>
                         </div>
                         

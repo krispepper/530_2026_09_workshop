@@ -17,51 +17,71 @@
             
             <!-- Location Form Card -->
             
-            <h5 class="card-title text-success">1. Create Location<span class="text-danger">*</span></label></h5>
+            <h5 class="card-title text-success">1. Create Location</label></h5>
                 <!-- Form submitting to create a new workshop location -->
                 <form action="/createLocation" method="POST">
+                <span class="text-danger">*</span>
                 <input type="text" class="form-control mb-2" name="location_name" placeholder="Room Name" required>
+                <span class="text-danger">*</span>
                 <input type="number" class="form-control mb-3" name="capacity" placeholder="Capacity" required>
-                <button type="submit" class="btn btn-success w-100">Add Location</button>
+                <div class="text-center">
+                     <button type="submit" class="btn btn-success" style="width: 200px;">Add Location</button>
+                </div>
                 </form>
                 <hr>
             <!-- Workshop Form Card -->
-                <h5 class="card-title text-primary">2. Create Workshop<span class="text-danger">*</span></label></h5>
+                <h5 class="card-title text-info">2. Create Workshop</label></h5>
                     <!-- Form submitting to create a new workshop linked to a host -->
                     <form action="/createWorkshop" method="POST">
-                        <select class="form-select mb-2" name="hostID" required>
+                        <span class="text-danger">*</span>
+                        <select class="form-select mb-2 text-muted" name="hostID" required>
                              <option value="" disabled selected>Select Host</option>
                              {% for host in hosts %}
                                 <option value="{{ host[0] }}">{{ host[1] }}</option>
                             {% endfor %}
                         </select>
+                        <span class="text-danger">*</span>
                         <input type="text" class="form-control mb-3" name="workshop_name" placeholder="Workshop Name" required>
-                        <input type="text" class="form-control mb-3" name="workshop_description" placeholder="(Optional) Workshop Description">
-                        <button type="submit" class="btn btn-primary w-100">Create Workshop</button>
+                        <textarea 
+                        class="form-control mb-3" 
+                        name="workshop_description" 
+                        placeholder="Workshop Description"
+                        rows="4"
+                        maxlength="100"
+                        ></textarea>
+                        <p class="text-center text-muted">Max Limit: 100 characters!</p>
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-info" style="width: 200px;">Create Workshop</button>
+                        </div>
                     </form>
                     <hr>
             <!-- Time Slot Form Card -->
-                        <h5 class="card-title text-primary">3. Create Time Slot<span class="text-danger">*</span></label></h5>
+                        <h5 class="card-title text-primary">3. Create Time Slot</label></h5>
                         <!-- Form submitting to schedule a new workshop time slot -->
                         <form action="/createTimeslot" method="POST">
-                            <select class="form-select mb-2" name="workshop_id" required>
+                            <span class="text-danger">*</span>
+                            <select class="form-select mb-2 text-muted" name="workshop_id" required>
                                 <option value="" disabled selected>Select Workshop</option>
                                 {% for workshop in workshops %}
                                     <option value="{{ workshop[0] }}">{{ workshop[1] }}</option>
                                 {% endfor %}
                             </select>
-                            <select class="form-select mb-2" name="location_id" required>
+                            <span class="text-danger">*</span>
+                            <select class="form-select mb-2 text-muted" name="location_id" required>
                                 <option value="" disabled selected>Select Location</option>
                                 {% for location in locations %}
                                     <option value="{{ location[0] }}">{{ location[1] }}</option>
                                 {% endfor %}
                             </select>
-                            <input type="datetime-local" class="form-control mb-2" name="session_datetime" required>
-                            <div class="form-check mb-3">
+                            <span class="text-danger">*</span>
+                            <input type="datetime-local" class="form-control mb-2 text-muted" name="session_datetime" required>
+                            <div class="form-check mb-3 text-muted">
                                 <input class="form-check-input" type="checkbox" name="is_public">
                                 <label class="form-check-label">Is Public?</label>
                             </div>
-                            <button type="submit" class="btn btn-primary w-100">Create Time Slot</button>
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-primary" style="width: 200px;">Create Time Slot</button>
+                            </div>
                         </form>
         
     </div>

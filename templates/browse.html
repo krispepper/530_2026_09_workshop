@@ -34,7 +34,9 @@
                                 <strong>Host:</strong> {{ workshop[2] }} | 
                                 <strong>Upcoming Time Slots:</strong> {{ workshop[3] }} | 
                                 <strong>{{ "Public" if workshop[4] == 1 else "Invite Only" }}</strong>
-                                <strong>{{ workshop[4] }}</strong>
+                                {%if   workshop[4] != None %}
+                                    <strong>{{ workshop[4] }}</strong>
+                                {% endif %}
                             <span class="badge bg-success">
                                 {{ workshop[6] }} Spots Available
                             </span>

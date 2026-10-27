@@ -29,14 +29,19 @@
                    
                     <li class="list-group-item d-flex justify-content-between align-items-center p-4">
                         <div>
-                            <h5 class="fw-bold mb-1">{{ workshop[1] }}</h5> 
+                            <h5 class="fw-bold mb-1">{{ workshop[1] }}</h5>
+                            <!--putting description underneath the title, if none its hidden-->
+                            <div>
+                                {%if   workshop[4] != None %}
+                                    <p class="text-primary">{{ workshop[4] }}</p>
+                                {% endif %}
+                            </div>
                             <div class="text-muted small mb-2">
                                 <strong>Host:</strong> {{ workshop[2] }} | 
                                 <strong>Upcoming Time Slots:</strong> {{ workshop[3] }} | 
-                                <strong>{{ "Public" if workshop[4] == 1 else "Invite Only" }}</strong> 
-                            </div>
+                                <strong>{{ "Public" if workshop[4] == 1 else "Invite Only" }}</strong>
                             <span class="badge bg-success">
-                                {{ workshop[5] }} Spots Available
+                                {{ workshop[6] }} Spots Available
                             </span>
                         </div>
                         

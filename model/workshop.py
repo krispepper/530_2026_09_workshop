@@ -12,15 +12,15 @@ def get_all_locations():
 
 def get_all_workshops():
     # Fetch all workshop titles and IDs
-    return fetch_data("SELECT id, workshop_name FROM workshop")
+    return fetch_data("SELECT id, workshop_name, workshop_descrption FROM workshop")
 
 def create_location(location_name, capacity):
     # Insert a new workshop location with seating capacity
     execute_query("INSERT INTO location (location_name, capacity) VALUES (%s, %s)", (location_name, capacity))
 
-def create_workshop(workshop_name, host_id):
+def create_workshop(workshop_name, host_id, workshop_description = None):
     # Insert a new workshop tied to a host ID
-    execute_query("INSERT INTO workshop (workshop_name, hostID) VALUES (%s, %s)", (workshop_name, host_id))
+    execute_query("INSERT INTO workshop (workshop_name, hostID, workshop_description) VALUES (%s, %s, %s)", (workshop_name, host_id, workshop_description))
 
 def create_timeslot(workshop_id, session_datetime, is_public, location_id):
     # Schedule a new workshop session date, time, and visibility (public or private)

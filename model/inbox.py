@@ -7,7 +7,7 @@ def get_inbox_messages():
     query = """
         SELECT im.id, im.personID, im.timeslot_id, im.created_at, w.workshop_name, u.firstName, e.email
         FROM inbox_messages im
-        INNER JOIN workshop_time_slot wts ON im.timeslot_id
+        INNER JOIN workshop_time_slot wts ON im.timeslot_id = wts.id
         INNER JOIN workshop w ON wts.workshop_id = w.id
         INNER JOIN users u ON im.personID = u.id
         INNER JOIN email e ON u.id = e.personID

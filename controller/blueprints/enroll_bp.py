@@ -1,7 +1,7 @@
 #Purpose: render pages realted to workshop enrollment
 from flask import Blueprint, render_template, request, redirect, url_for, session, flash
 from jinja2.exceptions import TemplateNotFound
-from model import enroll
+from model import enroll, roster
 
 enroll_bp = Blueprint('enroll', __name__, template_folder='templates')
 # Route to handle saving a user's workshop enrollment

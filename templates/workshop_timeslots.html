@@ -35,6 +35,16 @@
                                         <strong>Location:</strong> {{ slot[2] }} | 
                                         <strong>Type:</strong> {% if slot[3] == 1 %}Public{% else %}Private Invite{% endif %}
                                     </div>
+
+                                    
+                                    {%if loggedIn and loggedIn.perms == "host" or loggedIn.perms == "admin" %}
+                                        <form action="/" method="POST" class="m-0">
+                                            <input type="hidden" name="timeslot_id" value="{{ slot[0] }}">
+                                            <a href="/timeslot/{{ slot[0] }}/roster" class="btn btn-primary px-4 fw-bold">View Roster</a>
+                                        </form>
+                                    {% endif %}
+                                        
+                                    
                                     <span class="badge bg-success">
                                         {{ slot[4] }} Spots Available
                                     </span>

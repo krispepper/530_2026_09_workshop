@@ -77,3 +77,32 @@ def delete_workshop(workshop_id):
     # Step 4: Delete the workshop itself
     workshop_query = "DELETE FROM workshop WHERE id = %s"
     execute_query(workshop_query, (workshop_id,))
+
+def get_all_workshops():
+    # Fetch every workshop in the database, including the host's name
+    query = """
+        SELECT w.id, w.workshop_name, h.host_name
+        FROM workshop w
+        JOIN hosts h ON w.hostID = h.id
+    """
+    return fetch_data(query)
+
+def get_hosted_workshops(user_id):
+    # Fetch distinct workshops created by this specific user, including host's name
+    query = """
+        SELECT w.id, w.workshop_name, h.host_name
+        FROM workshop w
+        JOIN hosts h ON w.hostID = h.id
+        WHERE h.user_id = %s
+    """
+    return fetch_data(query, (user_id,))
+
+def get_all_timeslots():
+    # Fetch every timeslot in the database for the admin view
+    query = """
+        SELECT w.id, w.workshop_name, ts.id, ts.session_datetime, ts.is_public
+        FROM workshop w
+        JOIN workshop_time_slot ts ON w.id = ts.workshop_id
+        ORDER BY ts.session_datetime ASC
+    """
+    return fetch_data(query)

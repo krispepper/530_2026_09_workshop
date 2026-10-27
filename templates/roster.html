@@ -9,44 +9,79 @@
 <body class="bg-light">
     {% include 'navbar.html' %}
 
-    <div class="container mt-5">
-        <form action = "/createCSV" method="GET" >
-            <h2 >
-                Workshop Name: {{ timeslotRoster[0][7] }}  
-            </h2>
-            <h2>
-                Workshop Host: {{ timeslotRoster[0][6] }} 
-            </h2>
-            <h2>
-                Timeslot ID: {{ timeslotRoster[0][1] }}
-            </h2>
-            <h2>
-                Workshop ID: {{ timeslotRoster[0][5] }}
-            </h2>
- 
+    <!--main container-->
+    <div class="container py-4">
+    {% if timeslotRoster %}
 
-            <table>
-                <tr>
-                    <th>ID</th>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>Permission Level</th>
-                    
-                </tr>
-                {% for item in timeslotRoster %}
-                    <tr>
-                        <td> {{ item[0] }}</td> 
-                        <td> {{ item[2] }}</td> 
-                        <td> {{ item[3] }}</td> 
-                        <td> {{ item[4] }}</td>     
-                    </tr>
-                {% endfor %}
-            </table>
-            <a href = "/createCSV/{{ timeslotRoster[0][1] }}/roster">Export to CSV</a>
-
-        </form>
-        
-    
+        <div class="card shadow-sm mx-auto mt-4" style="max-width: 600px;">
+            <div class="card-body">
+                <!--main header-->
+                <h3 class="card-title text-center mb-4 text-primary">Workshop Info</h3>
+                <!--workshop info-->
+                <ul class="list-group list-group-flush gap-2">
+                    <li class="list-group-item d-flex justify-content-between align-items-center p-3 border rounded">
+                        <h5 class="fw-bold mb-1">Workshop Name:</h5>
+                        <div class="text-muted">
+                        {{ timeslotRoster[0][7] }}
+                        </div>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center p-3 border rounded">
+                        <h5 class="fw-bold mb-1">Workshop Host:</h5>
+                        <div class="text-muted">
+                        {{ timeslotRoster[0][6] }}
+                        </div>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center p-3 border rounded">
+                        <h5 class="fw-bold mb-1">Timeslot ID:</h5>
+                        <div class="text-muted">
+                        {{ timeslotRoster[0][1] }}
+                        </div>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center p-3 border rounded">
+                        <h5 class="fw-bold mb-1">Workshop ID:</h5>
+                        <div class="text-muted">
+                        {{ timeslotRoster[0][5] }}
+                        </div>
+                    </li>
+                </ul>
+                <hr>
+                <!--button to go back to browse workshops page-->
+                <div class="text-center">
+                    <p class="text-center mb-4">Not the one you're looking for?</p>
+                    <a href="/browse" class="btn btn-primary" style="width: 200px;">Back to Workshops</a>
+                </div>
+                <hr>
+                <!--roster table-->
+                <h4 class="text-center text-success">Class Roster</h4>
+                <ul class="list-group list-group-flush gap-2">
+                    <li class="list-group-item d-flex justify-content-between align-items-center p-3 border rounded">
+                        <table class="table">
+                        <thead>
+                            <tr class="table-success">
+                            <th scope="col">ID</th>
+                            <th scope="col">First Name</th>
+                            <th scope="col">Last Name</th>
+                            <th scope="col">Permission Level</th>
+                            </tr>
+                        </thead>
+                        {% for item in timeslotRoster %}
+                        <tbody>
+                            <td> {{ item[0] }}</td>
+                            <td> {{ item[2] }}</td>
+                            <td> {{ item[3] }}</td>
+                            <td> {{ item[4] }}</td>
+                        </tbody>
+                        {% endfor %}
+                        </table>
+                    </li>
+                    <!--export csv button-->
+                    <div class="text-center">
+                    <a href = "/createCSV/{{ timeslotRoster[0][1] }}/roster" class="btn btn-success" style="width: 200px;">Export to CSV</a>
+                    </div>
+                </ul>      
+            </div>
+        </div>
+        {% endif %}
     </div>
 
     <!-- Bootstrap JS is required to allow the flash message close button to work -->

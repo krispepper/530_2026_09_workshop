@@ -43,20 +43,3 @@ chmod +x run.sh
 ```bash
 ./run.sh
 ```
-
----
-
-## Running Unit Tests
-We use `pytest` for unit testing our backend modules (users, workshops, and enrollments). All unit tests are organized inside the `tests/` folder. 
-
-You can run the tests using our test script:
-
-**Step 1: Give execution permission to the test script**
-```bash
-chmod +x run_tests.sh
-```
-
-**Step 2: Run the tests**
-```bash
-./run_tests.sh
-```
